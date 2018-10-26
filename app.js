@@ -11,6 +11,9 @@ const flash = require('connect-flash');
 const {mongoDbUrl} = require('./config/database');
 const passport = require('passport');
 
+
+
+
 mongoose.connect(mongoDbUrl, { useNewUrlParser: true }).then((db) => {
 
     console.log('MONGO connected');
@@ -63,6 +66,7 @@ const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const categories = require('./routes/admin/categories');
 const comments = require('./routes/admin/comments');
+const blogs = require('./routes/admin/blogs')
 
 
 //USE ROUTES
@@ -71,6 +75,29 @@ app.use('/admin', admin);
 app.use('/admin/posts', posts);
 app.use('/admin/categories', categories);
 app.use('/admin/comments', comments);
+app.use('/admin/blogs', blogs);
+
+//REQUIRE FOR API
+const Post = require('./models/Post');
+const Blog = require('./models/Blogs');
+
+//API POST
+app.get('/posts', (req, res) => {
+    Post.find().then((posts) => {
+        res.send({posts});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
+//API BLOG
+app.get('/blogs', (req, res) => {
+    Blog.find().then((blogs) => {
+        res.send({blogs});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
 
 
 app.listen(4500, () => {
