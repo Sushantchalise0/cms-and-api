@@ -1,0 +1,36 @@
+<h1>EDIT Sponser HERE</h1>
+
+<form action="/admin/sponsers/edit/{{sponser.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="title"> Title </label>
+        <input type="text" name="title" class="form-control" id="tittle" value="{{sponser.title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="file"> File Upload </label>
+        <input type="file" name="file" class="form-control">
+    </div>
+
+  <div class="form-group">
+        <label for="status" class="form-check-label"> 
+        <input type="checkbox" name="status" {{#if sponser.status}} checked="checked" {{/if}} class="form-check-input" id="status" >
+        Status
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="description"> Description </label>
+        <textarea name="description" class="form-control" id="description" cols="30" rows="10">{{sponser.description}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="offer"> Offers </label>
+        <textarea name="offer" class="form-control" id="offer" cols="30" rows="10">{{sponser.offer}}</textarea>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary"> Update </button>
+
+</form>

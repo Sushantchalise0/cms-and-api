@@ -1,0 +1,42 @@
+<h1>ADD SPONSERS HERE</h1>
+
+{{#each errors}}
+
+    <div class="alert alert-danger">
+    {{message}}
+    </div>
+{{/each}}
+
+<form action="/admin/sponsers/create" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="title"> Title </label>
+        <input type="text" name="title" class="form-control" id="tittle" placeholder="Enter Name of Sponser">
+    </div>
+
+    <div class="form-group">
+        <label for="file"> Upload Image </label>
+        <input type="file" name="file" class="form-control">
+    </div>
+
+
+  <div class="form-group">
+        <label for="status" class="form-check-label"> 
+        <input type="checkbox" name="status" class="form-check-input" id="status" >
+        Status
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="description"> Short Description </label>
+        <textarea name="description" class="form-control" id="description" cols="30" rows="10" placeholder="Enter Description"></textarea>
+    </div>
+
+<div class="form-group">
+        <label for="offer"> Offers </label>
+        <textarea name="offer" class="form-control" id="offer" cols="30" rows="10" placeholder="The Offers"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary"> CREATE </button>
+
+</form>

@@ -66,7 +66,8 @@ const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const categories = require('./routes/admin/categories');
 const comments = require('./routes/admin/comments');
-const blogs = require('./routes/admin/blogs')
+const blogs = require('./routes/admin/blogs');
+const sponsers = require('./routes/admin/sponsers');
 
 
 //USE ROUTES
@@ -76,10 +77,12 @@ app.use('/admin/posts', posts);
 app.use('/admin/categories', categories);
 app.use('/admin/comments', comments);
 app.use('/admin/blogs', blogs);
+app.use('/admin/sponsers', sponsers);
 
 //REQUIRE FOR API
 const Post = require('./models/Post');
 const Blog = require('./models/Blogs');
+const Sponser = require('./models/Sponsers');
 
 //API POST
 app.get('/posts', (req, res) => {
@@ -96,6 +99,15 @@ app.get('/blogs', (req, res) => {
         res.send({blogs});
     }, (e) => {
         res.status(400).send(e);
+    });
+});
+
+//API SPONSERS
+app.get('/sponsers', (req, res) => {
+    Sponser.find().then((sponsers) => {
+        res.send({sponsers});
+    }, (e) => {
+        res.send(400).send(e);
     });
 });
 
