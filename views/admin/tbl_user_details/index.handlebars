@@ -1,0 +1,44 @@
+<h1>ALL USERS</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>User Name</th>
+        <th>User Image</th>
+        <th>Distance Covered</th>
+        <th>Calorie Burnt</th>
+        <th>Carbon Reduced</th>
+        <th>Coins</th>
+    </tr>
+</thead>
+
+<tbody>
+
+    {{#each tbl_user_details}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{user_name}}</td>
+        <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td>
+        {{!-- <td><a href="/tbl_user_details/{{id}}" class="btn btn-info">View</a></td> --}}
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       </td>
+        <td>
+            <form action="/admin/tbl_user_details/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+
+
+
+</table> 
