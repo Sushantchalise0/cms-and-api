@@ -77,7 +77,8 @@ router.post('/create', (req, res) => {
         status: status,
         description: req.body.description,
         offer: req.body.offer,
-        file: '/uploads/' + filename
+        file: '/uploads/' + filename,
+        link: req.body.link
    });
     
     newSponser.save().then(savedSponser => {
@@ -139,6 +140,7 @@ router.get('/edit/:id', (req, res) => {
         sponser.status= status;
         sponser.description = req.body.description;
         sponser.offer = req.body.offer;
+        sponser.link = req.body.link;
 
         if(!isEmpty(req.files)){
 

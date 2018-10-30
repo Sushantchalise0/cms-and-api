@@ -93,7 +93,7 @@ app.get('/posts', (req, res) => {
     });
 });
 
-//API BLOG
+//API GET ALL BLOG
 app.get('/blogs', (req, res) => {
     Blog.find().then((blogs) => {
         res.send({blogs});
@@ -102,7 +102,7 @@ app.get('/blogs', (req, res) => {
     });
 });
 
-//API SPONSERS
+//API GET ALL SPONSERS
 app.get('/sponsers', (req, res) => {
     Sponser.find().then((sponsers) => {
         res.send({sponsers});
@@ -111,6 +111,17 @@ app.get('/sponsers', (req, res) => {
     });
 });
 
+// app.post('/sponsers', (req, res) => {
+//     var sponser = new Sponser({
+//         title: req.body.title
+//     });
+
+//     sponser.save().then((docs) => {
+//         res.send(docs);
+//     }, (e) => {
+//         res.status(400).send(e);
+//     });
+// });
 
 app.listen(4500, () => {
 
