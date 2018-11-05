@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 const Schema = mongoose.Schema;
 const BlogSchema = new Schema({
 
-   
+    // _id: {
+    //     type: String,
+    //     default: shortid.generate
+    //   },
+
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
@@ -19,6 +24,10 @@ const BlogSchema = new Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+
+    link:{
+        type: String
     }
 
 });

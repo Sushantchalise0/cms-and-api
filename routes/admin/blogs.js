@@ -48,7 +48,8 @@ router.post('/create', (req, res) => {
 
         user: req.user.id,
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        link: req.body.link
    });
     
     newBlog.save().then(savedBlog => {
@@ -95,6 +96,7 @@ router.put('/edit/:id', (req, res) => {
         // blog.user = req.user.id;
         blog.title = req.body.title;
         blog.description = req.body.description;
+        blog.link = req.body.link;
 
         blog.save().then(updatedBlog => {
 

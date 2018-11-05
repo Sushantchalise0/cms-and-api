@@ -1,6 +1,17 @@
 <h1>ALL USERS</h1>
 
 {{!-- {{> home/form-msgs}} --}}
+<div class="row">
+    <div class="col-sm-4">
+        <form action="/admin/details/create" method="POST">
+            <div class="form-group">
+                <label for="user_name">Name</label>
+                <input type="text" name="user_name" placeholder="Enter Title" class="form-control">
+            </div>
+        <button class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>
 
 <table class="table table-bordered">
 <thead>
@@ -8,37 +19,25 @@
         <th>Id</th>
         <th>User Name</th>
         <th>User Image</th>
-        <th>Distance Covered</th>
-        <th>Calorie Burnt</th>
-        <th>Carbon Reduced</th>
-        <th>Coins</th>
     </tr>
 </thead>
 
 <tbody>
 
-    {{#each tbl_user_details}}
+    {{#each details}}
     <tr>
         <td>{{id}}</td>
         <td>{{user_name}}</td>
         <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td>
-        {{!-- <td><a href="/tbl_user_details/{{id}}" class="btn btn-info">View</a></td> --}}
-       <td></td>
-       <td></td>
-       <td></td>
-       <td></td>
-       </td>
+        
         <td>
-            <form action="/admin/tbl_user_details/{{id}}?_method=DELETE" method="POST">
+            <form action="/admin/details/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
         </td>
-    
     </tr>
     {{/each}}
 
+ 
 </tbody>
-
-
-
 </table> 

@@ -19,9 +19,24 @@
               <a href="/admin/posts/create">Create Post</a>
             </li>
           </ul>
+        </li> --}}
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="tbl_user_progress">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsetbl_user_progress" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-wrench"></i>
+            <span class="nav-link-text">User Progress</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapsetbl_user_progress">
+            <li>
+              <a href="/admin/progresses">All User Progress</a>
+            </li>
+            <li>
+              <a href="/admin/progresses/create">Add User Progress</a>
+            </li>
+          </ul>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Categories">
+        {{!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Categories">
           <a class="nav-link" href="/admin/categories">
             <i class="fa fa-fw fa-link"></i>
             <span class="nav-link-text">Categories</span>
@@ -35,8 +50,8 @@
           </a>
         </li> --}}
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="tbl_user_details">
-          <a class="nav-link" href="/admin/tbl_user_details">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="details">
+          <a class="nav-link" href="/admin/details">
             <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text">Users</span>
           </a>

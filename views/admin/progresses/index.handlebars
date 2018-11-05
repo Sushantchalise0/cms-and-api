@@ -1,0 +1,40 @@
+<h1>ALL USER PROGRESSES</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Distance</th>
+        <th>Calorie</th>
+        <th>Carbon Reduced</th>
+    </tr>
+</thead>
+
+<tbody>
+
+    {{#each progresses}}
+    <tr>
+        <td>{{id}}</td>
+        {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
+        <td>{{detail.user_name}}</td>
+        <td>{{distance}}</td>
+        <td>{{calorie}}</td>
+        <td>{{carbon_red}}</td>
+        
+        <td>
+            <form action="/admin/progresses/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+
+
+
+</table>

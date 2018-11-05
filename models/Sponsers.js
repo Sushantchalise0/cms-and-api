@@ -29,10 +29,6 @@ const SponserSchema = new Schema({
 
     offer: {
         type: String
-    },
-
-    link:{
-        type: String
     }
 
     // comments: [{
