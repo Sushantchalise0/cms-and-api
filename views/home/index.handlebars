@@ -6,12 +6,12 @@
           <h1 class="my-4">HOME
           </h1>
 
-          {{#each posts}}
+          {{!-- {{#each posts}}
           <!-- Blog Post -->
           <div class="card mb-4">
             <img class="card-img-top" src="/uploads/{{file}}" alt="Card image cap">
             <div class="card-body">
-              <h2 class="card-title">{{title}}</h2>
+              <h2 class="card-title">{{id}}</h2>
               <p class="card-text">{{body}}</p>
               <a href="/post/{{id}}" class="btn btn-primary">Read More &rarr;</a>
             </div>
@@ -20,8 +20,19 @@
               <a href="#">Start Bootstrap</a>
             </div>
           </div>
-          {{/each}}
+          {{/each}} --}}
           
+        {{#each details}}
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <img class="card-img-top" src="{{user_img}}" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title">{{user_name}}</h2>
+              <a href="/post/{{id}}" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+          </div>
+          {{/each}}
+
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">

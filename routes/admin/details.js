@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const {userAuth} = require('../../helpers/authen');
 const Detail = require('../../models/Detail');
-const fs = require('fs');
-
-
 
 //READ USERS    
 router.get('/', (req, res) => {
@@ -40,4 +37,8 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+
+
 module.exports = router;
+
+

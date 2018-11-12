@@ -156,10 +156,12 @@ app.post('/progress', (req, res) => {
     });
 });
 
-// //API ADD USERS
+//API ADD USERS
 app.post('/details', (req, res) => {
+    var user_img = '/uploads/' + req.body.user_img
     var details = new Detail({
-        user_name: req.body.user_name
+        user_name: req.body.user_name,
+        user_img: user_img
     });
 
     details.save().then((docs) => {

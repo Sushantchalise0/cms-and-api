@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const Sponser = require('../../models/Sponsers');
 const POST = require('../../models/Post');
 const Category = require('../../models/Category');
 const faker = require('faker');
+const Blog = require('../../models/Blogs');
+const User = require('../../models/Detail');
 const {userAuth} = require('../../helpers/authen');
 
 
@@ -16,7 +19,13 @@ router.get('/', (req, res) => {
 
     POST.count({}).then(postCount => {
         Category.count({}).then(categoryCount => {
-            res.render('admin/index', {postCount: postCount, categoryCount: categoryCount});
+            Sponser.count({}).then(sponserCount => {
+                Blog.count({}).then(blogCount => {
+                    User.count({}).then(userCount => {
+                        res.render('admin/index', {postCount: postCount, categoryCount: categoryCount, sponserCount: sponserCount, blogCount:blogCount, userCount:userCount});
+                    });
+                });
+            });
         });
     });
 });

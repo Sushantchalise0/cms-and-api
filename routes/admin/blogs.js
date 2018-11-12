@@ -3,6 +3,7 @@ const router = express.Router();
 const {userAuth} = require('../../helpers/authen');
 const Blog = require('../../models/Blogs');
 const fs = require('fs');
+const app = express();
 
 
 //READ Blogs
@@ -105,5 +106,6 @@ router.put('/edit/:id', (req, res) => {
         });
     });   
 });
+
 
 module.exports = router;
