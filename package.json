@@ -2,7 +2,7 @@
   "name": "cms",
   "version": "1.0.1",
   "description": "A CMS in NODE.js",
-  "main": "index.js",
+  "main": "app.js",    
   "scripts": {
     "start": "node app.js"
   },
@@ -29,10 +29,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sushantchalise0/deploycms.git"
+    "url": "git+https://github.com/Sushantchalise0/cms-and-api.git"
   },
   "bugs": {
-    "url": "https://github.com/Sushantchalise0/deploycms/issues"
+    "url": "https://github.com/Sushantchalise0/cms-and-api/issues"
   },
-  "homepage": "https://github.com/Sushantchalise0/deploycms#readme"
+  "homepage": "https://github.com/Sushantchalise0/cms-and-api#readme"
 }

@@ -14,11 +14,13 @@ const BlogSchema = new Schema({
     },
 
     title: {
-        type: String
+        type: String,
+        default: 'empty'
     },
 
     description: {
-        type: String
+        type: String,
+        default: 'empty'
     },
 
     date: {
@@ -27,7 +29,8 @@ const BlogSchema = new Schema({
     },
 
     link:{
-        type: String
+        type: String,
+        default: 'empty'
     }
 
 });

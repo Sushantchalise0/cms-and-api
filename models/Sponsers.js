@@ -4,22 +4,23 @@ const SponserSchema = new Schema({
 
 
    file: {
-    type: String
+    type: String,
+    default: 'empty'
    },
 
     status: {
-        type: Boolean,
-        require: true
+        type: String,
+        default: false
     },
 
     title: {
         type: String,
-        require: true
+        default: 'empty'
     },
 
     description: {
         type: String,
-        require: true
+        default: 'empty'
     },
 
     date: {
@@ -28,7 +29,8 @@ const SponserSchema = new Schema({
     },
 
     offer: {
-        type: String
+        type: String,
+        default: 'empty'
     }
 
     // comments: [{
