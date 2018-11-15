@@ -8,7 +8,8 @@ const app = express();
 
 //READ Blogs
 router.get('/', (req, res) => {
-    Blog.find({}).then(blogs => {
+    var mysort = {title : -1}
+    Blog.find({}).sort(mysort).then(blogs => {
 
         res.render('admin/blogs', {blogs: blogs});
     }); 

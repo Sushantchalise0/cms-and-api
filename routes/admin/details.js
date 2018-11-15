@@ -5,7 +5,8 @@ const Detail = require('../../models/Detail');
 
 //READ USERS    
 router.get('/', (req, res) => {
-    Detail.find({}).then(details => {
+    var mysort = { user_name: 1 };
+    Detail.find({}).sort(mysort).then(details => {
 
         res.render('admin/details/index', {details: details});
     }); 

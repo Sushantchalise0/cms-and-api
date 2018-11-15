@@ -68,6 +68,7 @@ const blogs = require('./routes/admin/blogs');
 const sponsers = require('./routes/admin/sponsers');
 const details = require('./routes/admin/details');
 const progresses = require('./routes/admin/porgresses');
+const leaderboards = require('./routes/admin/leaderboards');
 
 
 //USE ROUTES
@@ -80,6 +81,7 @@ app.use('/admin/blogs', blogs);
 app.use('/admin/sponsers', sponsers);
 app.use('/admin/details', details);
 app.use('/admin/progresses', progresses);
+app.use('/admin/leaderboards', leaderboards);
 
 //REQUIRE FOR API
 const Post = require('./models/Post');
@@ -127,8 +129,9 @@ app.get('/sponsers', (req, res) => {
 
 //API GET USER 
 app.get('/details', (req, res) => {
-    Detail.find().then((docs) => {
-        res.send({docs});
+    var mysort = { user_name: 1 };
+    Detail.find().sort(mysort).then((details) => {
+        res.send({details});
     }, (e) => {
         res.send(400).send(e);
     });
@@ -138,6 +141,15 @@ app.get('/details', (req, res) => {
 app.get('/progress', (req, res) => {
     Progress.find().then((docs) => {
         res.send({docs});
+    }, (e) => {
+        res.send(400).send(e);
+    });
+});
+
+//API FOR LEADERBOARD TOP 5
+app.get('/leaderboard', (req, res) => {
+    Progress.find({}).sort({distance: -1}).limit(5).then((win) => {
+        res.send({win});
     }, (e) => {
         res.send(400).send(e);
     });

@@ -1,0 +1,33 @@
+<h2>Leaderboard</h2>
+
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Distance</th>
+        <th>Calorie</th>
+        <th>Carbon Reduced</th>
+        <th>Coins</th>
+    </tr>
+</thead>
+
+<tbody>
+
+    {{#each progresses}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{detail.user_name}}</td>
+        <td>{{distance}}</td>
+        <td>{{calorie}}</td>
+        <td>{{carbon_red}}</td>
+        <td>{{coins}}</td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+
+
+
+</table>
