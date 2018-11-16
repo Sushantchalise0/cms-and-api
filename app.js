@@ -129,15 +129,14 @@ app.get('/sponsers', (req, res) => {
 
 //API GET USER 
 app.get('/details', (req, res) => {
-    var mysort = { user_name: 1 };
-    Detail.find().sort(mysort).then((details) => {
+    Detail.find().then((details) => {
         res.send({details});
     }, (e) => {
         res.send(400).send(e);
     });
 });
 
-// //API GET USER PROGRESS
+//API GET USER PROGRESS
 app.get('/progress', (req, res) => {
     Progress.find().then((docs) => {
         res.send({docs});
@@ -149,6 +148,7 @@ app.get('/progress', (req, res) => {
 //API FOR LEADERBOARD TOP 5
 app.get('/leaderboard', (req, res) => {
     Progress.find({}).sort({distance: -1}).limit(5).then((win) => {
+        
         res.send({win});
     }, (e) => {
         res.send(400).send(e);
@@ -177,10 +177,38 @@ app.post('/details', (req, res) => {
     });
 
     details.save().then((docs) => {
+        
         res.send(docs);
     }, (e) => {
         res.status(400).send(e);
     });
+});
+
+//API GET ONES POSITION
+app.get('/position/:id', (req, res) => {
+
+    var detail = req.params.id;
+    Progress.find({detail}).then((progresses) => {
+        
+        var obj = JSON.stringify(progresses);
+         console.log(obj)
+        // console.log(obj.substring(13, 14));
+        var dis = parseInt(obj.substring(13, 15));
+        console.log(dis);
+    Progress.find({ distance : { $gt : dis } }).count(function (err, count) {
+        count = count + 1;
+        if (!progresses) {
+            return res.status(404).send();
+        } 
+              res.send('your position is ' + count);
+        
+        
+        //console.log('your position is  %d', count);
+      //});
+    }).catch((e) => {
+        res.status(400).send()
+    });
+});
 });
 
 //API GET PROGRESS

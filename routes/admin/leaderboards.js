@@ -9,8 +9,12 @@ router.get('/', (req, res) => {
     .populate('detail')
     .then(progresses => {
 
+        console.log(req.body.distance);
+
         res.render('admin/leaderboards', {progresses: progresses});
-    });    
+    }); 
+    
+
 });
 
 module.exports = router;
