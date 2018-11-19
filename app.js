@@ -170,18 +170,59 @@ app.post('/progress', (req, res) => {
 
 //API ADD USERS
 app.post('/details', (req, res) => {
-    var user_img = '/uploads/' + req.body.user_img
+    var user_img = '/uploads/' + req.body.user_img;
+    var fb_id = req.body.fb_id;
+
     var details = new Detail({
         user_name: req.body.user_name,
-        user_img: user_img
+        user_img: user_img,
+        fb_id: fb_id,
+        gender: req.body.gender
     });
 
-    details.save().then((docs) => {
+    function isEmptyObject(obj) {
+        return !Object.keys(obj).length;
+      }
+      
+      // This should work both there and elsewhere.
+      function isEmptyObject(obj) {
+        for (var key in obj) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            return false;
+          }
+        }
+        return true;
+      }
+    Detail.find({fb_id}).then((data) => {
+        console.log((data));
+        if(isEmptyObject(data)) {
+            details.save().then((docs) => {
         
-        res.send(docs);
-    }, (e) => {
-        res.status(400).send(e);
+                res.send(docs);
+            }, (e) => {
+                res.status(400).send(e);
+            });
+            
+        }
+        else{
+            return res.send('user exists');
+        }
     });
+    
+    // Detail.find({fb_id}).then((data) => {
+    //     console.log(data);
+    //     if (data !== null) {
+    //         return res.send('user exists');
+    //     }
+    //     else{
+    //     details.save().then((docs) => {
+        
+    //     res.send(docs);
+    // }, (e) => {
+    //     res.status(400).send(e);
+    // });
+    //     }
+    // });
 });
 
 //API GET ONES POSITION

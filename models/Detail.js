@@ -10,6 +10,17 @@ const DetailSchema = new Schema({
    user_img: {
     type: String,
     default: 'empty'
+   },
+
+   fb_id: {
+       type: String,
+       default: '1234',
+       unique: true
+   },
+
+   gender: {
+       type: String,
+       default: 'none'
    }
 
 });
