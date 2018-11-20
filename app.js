@@ -168,6 +168,22 @@ app.post('/progress', (req, res) => {
     });
 });
 
+//FUNCTION TO CHECK IF OBJECT IS EMPTY
+function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+  
+  // This should work both there and elsewhere.
+  function isEmptyObject(obj) {
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
 //API ADD USERS
 app.post('/details', (req, res) => {
     var user_img = '/uploads/' + req.body.user_img;
@@ -180,49 +196,31 @@ app.post('/details', (req, res) => {
         gender: req.body.gender
     });
 
-    function isEmptyObject(obj) {
-        return !Object.keys(obj).length;
-      }
-      
-      // This should work both there and elsewhere.
-      function isEmptyObject(obj) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            return false;
-          }
-        }
-        return true;
-      }
     Detail.find({fb_id}).then((data) => {
         console.log((data));
-        if(isEmptyObject(data)) {
             details.save().then((docs) => {
         
                 res.send(docs);
+                
             }, (e) => {
                 res.status(400).send(e);
             });
-            
+    });
+});
+
+//API TO CHECK IS USER EXISTS
+app.post('/status', (req, res) => {
+    var fb_id = req.body.fb_id;
+
+    Detail.find({fb_id}).then((data) => {
+        console.log((data));
+        if(isEmptyObject(data)) {
+                return res.send('false');
         }
         else{
-            return res.send('user exists');
+            return res.send('true');
         }
     });
-    
-    // Detail.find({fb_id}).then((data) => {
-    //     console.log(data);
-    //     if (data !== null) {
-    //         return res.send('user exists');
-    //     }
-    //     else{
-    //     details.save().then((docs) => {
-        
-    //     res.send(docs);
-    // }, (e) => {
-    //     res.status(400).send(e);
-    // });
-    //     }
-    // });
 });
 
 //API GET ONES POSITION

@@ -14,7 +14,7 @@ const DetailSchema = new Schema({
 
    fb_id: {
        type: String,
-       default: '1234',
+       default: '0',
        unique: true
    },
 
