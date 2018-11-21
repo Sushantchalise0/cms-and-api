@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
-const shortid = require('shortid');
 const Schema = mongoose.Schema;
+
 const BlogSchema = new Schema({
 
-    // _id: {
-    //     type: String,
-    //     default: shortid.generate
-    //   },
-
+    
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
@@ -23,6 +19,7 @@ const BlogSchema = new Schema({
         default: 'empty'
     },
 
+
     date: {
         type: Date,
         default: Date.now()
@@ -32,7 +29,6 @@ const BlogSchema = new Schema({
         type: String,
         default: 'empty'
     }
-
 });
 
-module.exports = mongoose.model('Blog', BlogSchema);
+module.exports = mongoose.model('Blog', BlogSchema, 'blogs');

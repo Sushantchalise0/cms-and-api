@@ -146,14 +146,65 @@ app.get('/progress', (req, res) => {
 });
 
 //API FOR LEADERBOARD TOP 5
-app.get('/leaderboard', (req, res) => {
-    Progress.find({}).sort({distance: -1}).limit(5).then((win) => {
+app.get('/leaderboard', function(req, res) {
+    Progress.find({}, "distance").sort({distance: -1}).limit(5)
+        .populate("detail")
+        .exec(function(err, users) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json(users);
+            }
+        });
+   });
+
+//API FOR TEST LEADERBOARD
+app.get('/test', (req, res) => {
+    Progress.find().sort({distance: -1}).limit(5).exec(function(err, prog) {
+        if (err) {
+          console.log('Error : ' + err);
+        } else {
+          if (prog != null) {
+            console.log(prog[1].detail);
+            var lead = prog[0];
+            var _id = prog[1].detail;
+
+            Detail.findById({_id})
+            // .then((details) => {
+            //     res.send({details});
+            // });
+            .exec(function(err, det) {
+                var output = Object.assign(lead, det);
+                if (det != null) {
+                    console.log(output);
+                 res.send(lead);
+                  //res.send([prog[1], det]);
+                } 
+                else {
+                  console.log('No jobs');
+                }
+            });
+          } else {
+            console.log('No posts found');
+          }
+        }
+      });
+//     Promise.all([
+//         Progress.find().exec(), // returns a promise
+//         Detail.find().exec() // returns a promise
+//       ]).then(function(results) {
+//         // results is [devDocs, jobs]
+//           console.log(results);
         
-        res.send({win});
-    }, (e) => {
-        res.send(400).send(e);
-    });
-});
+        
+        
+//         res.send(results);
+    
+//       }).catch(function(err) {
+//         res.send(err);
+//       });
+//   });
+   });
 
 // //API ADD USER PROGRESS
 app.post('/progress', (req, res) => {
@@ -255,6 +306,7 @@ app.get('/getProgress/:id', (req, res) => {
     var detail = req.params.id;
 
     Progress.find({detail}).then((progresses) => {
+        console.log(detail);
         if (!progresses) {
             return res.status(404).send();
         }
