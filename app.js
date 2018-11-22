@@ -160,24 +160,22 @@ app.get('/leaderboard', function(req, res) {
 
 //API FOR TEST LEADERBOARD
 app.get('/test', (req, res) => {
-    Progress.find().sort({distance: -1}).limit(5).exec(function(err, prog) {
+    Progress.find().exec(function(err, prog) {
         if (err) {
           console.log('Error : ' + err);
         } else {
           if (prog != null) {
+              var obj1 = {meta: prog};
             console.log(prog[1].detail);
-            var lead = prog[0];
-            var _id = prog[1].detail;
 
-            Detail.findById({_id})
+            Detail.find({})
             // .then((details) => {
             //     res.send({details});
             // });
             .exec(function(err, det) {
-                var output = Object.assign(lead, det);
+                var obj2 = {data: det};
                 if (det != null) {
-                    console.log(output);
-                 res.send(lead);
+                 res.send([obj1, obj2]);
                   //res.send([prog[1], det]);
                 } 
                 else {
@@ -237,7 +235,7 @@ function isEmptyObject(obj) {
 
 //API ADD USERS
 app.post('/details', (req, res) => {
-    var user_img = '/uploads/' + req.body.user_img;
+    var user_img = req.body.user_img;
     var fb_id = req.body.fb_id;
 
     var details = new Detail({
