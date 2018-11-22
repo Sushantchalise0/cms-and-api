@@ -314,6 +314,20 @@ app.get('/getProgress/:id', (req, res) => {
     });
 });
 
+//API TO GETDETAIL  
+app.post('/details/getDetails', (req, res) => {
+    var fb_id = req.body.fb_id;
+
+    Detail.find({fb_id}).then((data) => {
+        if(isEmptyObject(data)) {
+                return res.send('nodata');
+        }
+        else{
+            return res.send(data);
+        }
+    });
+});
+
 //API SET PROGRESS
 app.post('/progresses/setProgress', (req, res) => {
     
@@ -332,7 +346,7 @@ app.post('/progresses/setProgress', (req, res) => {
             res.status(400).send(e);
         });
 
-        res.send({progresses});
+        res.send('updated');
     }).catch((e) => {
         res.status(400).send();
     });
