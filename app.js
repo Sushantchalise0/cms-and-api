@@ -323,7 +323,7 @@ app.post('/details/getDetails', (req, res) => {
                 return res.send('nodata');
         }
         else{
-            return res.send(data);
+            return res.send({data});
         }
     });
 });
