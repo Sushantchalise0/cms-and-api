@@ -153,7 +153,7 @@ app.get('/leaderboard', function(req, res) {
             if(err) {
                 res.json(err);
             } else {
-                res.json(users);
+                res.json({users});
             }
         });
    });
