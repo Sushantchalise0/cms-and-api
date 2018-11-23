@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {userAuth} = require('../../helpers/authen');
 const Detail = require('../../models/Detail');
+const Progress = require('../../models/Progress');
 
 //READ USERS    
 router.get('/', (req, res) => {
@@ -20,6 +21,13 @@ router.post('/create', (req, res) => {
     });
 
     newDetail.save(savedDetail => { 
+        const newProgres = Progress({
+            distance: 0,
+            detail: newDetail._id
+        });
+        newProgres.save(saved => {
+            req.flash('progress also saved');
+        });
         req.flash('success_message', `User successfully created`);
         res.redirect('/admin/details')        
     }); 

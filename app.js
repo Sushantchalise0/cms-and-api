@@ -246,11 +246,16 @@ app.post('/details', (req, res) => {
     });
 
     Detail.find({fb_id}).then((data) => {
-        console.log((data));
+        //console.log((data));
             details.save().then((docs) => {
-        
+                console.log(details._id);
+                var progresses = new Progress({
+                    detail: details._id,
+                    distance: 0
+                });
+                progresses.save().then((done) => {
                 res.send(docs);
-                
+            });
             }, (e) => {
                 res.status(400).send(e);
             });
