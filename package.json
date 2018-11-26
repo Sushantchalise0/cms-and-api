@@ -2,13 +2,14 @@
   "name": "cms",
   "version": "1.0.1",
   "description": "A CMS in NODE.js",
-  "main": "app.js",    
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "author": "Sushant Chalise",
   "license": "ISC",
   "dependencies": {
+    "animejs": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",

@@ -13,7 +13,7 @@ body{
     left: 50%;
     transform: translate(-50%,-50%);
     background: #7fd3bede;
-    text-align: center;
+    text-align: center;    
   }
   .box h1{
     color: white;
@@ -61,3 +61,4 @@ body{
     width:100%;
     text-align: center;
  }
+ 
