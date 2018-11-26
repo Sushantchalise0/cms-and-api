@@ -308,12 +308,12 @@ app.get('/position/:id', (req, res) => {
 app.post('/progresses/getProgress', (req, res) => {
     var detail = req.body.detail;
 
-    Progress.find({detail}).then((progresses) => {
+    Progress.find({detail}).then(progresses => {
         console.log(detail);
         if (!progresses) {
             return res.status(404).send();
         }
-        res.send({progresses});
+        res.json({progresses});
     }).catch((e) => {
         res.status(400).send();
     });
