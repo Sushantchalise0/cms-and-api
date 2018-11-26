@@ -87,7 +87,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/register123', (req, res) => {
 
-    res.render('home/register123');
+    res.render('home/register');
 });
 
 router.post('/register123', (req, res) => {

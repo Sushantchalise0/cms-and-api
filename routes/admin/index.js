@@ -9,7 +9,7 @@ const User = require('../../models/Detail');
 const {userAuth} = require('../../helpers/authen');
 
 
-router.all('/*',  (req, res, next) => {
+router.all('/*', userAuth, (req, res, next) => {
 
     req.app.locals.layout = 'admin';
     next();
