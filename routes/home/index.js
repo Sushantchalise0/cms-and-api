@@ -30,10 +30,6 @@ router.get('/', (req, res) => {
     });  
 });
 
-router.get('/about', (req, res) => {
-
-    res.render('home/about');
-});
 
 router.get('/login', (req, res) => {
 
@@ -89,12 +85,12 @@ router.get('/logout', (req, res) => {
     res.render('home/login');
 });
 
-router.get('/register', (req, res) => {
+router.get('/register123', (req, res) => {
 
-    res.render('home/register');
+    res.render('home/register123');
 });
 
-router.post('/register', (req, res) => {
+router.post('/register123', (req, res) => {
 
     let errors = [];
     if(!req.body.firstName){

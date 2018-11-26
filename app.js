@@ -305,8 +305,8 @@ app.get('/position/:id', (req, res) => {
 });
 
 //API GET PROGRESS
-app.get('/getProgress/:id', (req, res) => {
-    var detail = req.params.id;
+app.post('/progresses/getProgress', (req, res) => {
+    var detail = req.body.detail;
 
     Progress.find({detail}).then((progresses) => {
         console.log(detail);
