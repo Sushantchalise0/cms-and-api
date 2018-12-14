@@ -19,7 +19,7 @@ const SponserSchema = new Schema({
     },
 
     description: {
-        type: String,
+        type: String,   
         default: 'empty'
     },
 
@@ -31,6 +31,11 @@ const SponserSchema = new Schema({
     offer: {
         type: String,
         default: 'empty'
+    },
+
+    coins: {
+        type: Number,
+        default: 0
     }
 
     // comments: [{

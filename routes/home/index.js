@@ -153,7 +153,7 @@ router.post('/register123', (req, res) => {
             } else {
 
                 req.flash('error_message', `User already exists`);
-                res.redirect('/register');
+                res.redirect('/register123');
             }
         });
     }   
