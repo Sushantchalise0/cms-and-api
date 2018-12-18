@@ -1,0 +1,40 @@
+<h1>CREATE tbl_user_progress HERE</h1>
+
+{{#each errors}}
+
+    <div class="alert alert-danger">
+    {{message}}
+    </div>
+{{/each}}
+
+<form action="/admin/coupons/create" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="sponser"> Sponsers </label>
+        <select name="sponser" id="status" class="form-control">
+        
+         {{#each sponsers}}
+            <option value='{{id}}'>{{title}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="detail"> USER </label>
+        <select name="detail" id="status" class="form-control">
+        
+         {{#each details}}
+            <option value='{{id}}'>{{user_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="qrKey"> QR </label>
+        <input type="number" name="qrKey" class="form-control" id="qrKey" placeholder="Enter distance">
+    </div>
+
+    <button type="submit" class="btn btn-primary"> CREATE </button>
+
+</form>

@@ -1,0 +1,38 @@
+<h1>ALL USER Coupons</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Sponsor</th>
+        <th>QR</th>
+    </tr>
+</thead>
+
+<tbody>
+
+    {{#each coupons}}
+    <tr>
+        <td>{{id}}</td>
+        {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
+        <td>{{detail.user_name}}</td>
+        <td>{{sponser.title}}</td>
+        <td>{{qrKey}}</td>
+        
+        <td>
+            <form action="/admin/coupons/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+
+
+
+</table>

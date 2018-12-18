@@ -69,6 +69,7 @@ const sponsers = require('./routes/admin/sponsers');
 const details = require('./routes/admin/details');
 const progresses = require('./routes/admin/porgresses');
 const leaderboards = require('./routes/admin/leaderboards');
+const coupons = require('./routes/admin/coupons');
 
 
 //USE ROUTES
@@ -82,6 +83,7 @@ app.use('/admin/sponsers', sponsers);
 app.use('/admin/details', details);
 app.use('/admin/progresses', progresses);
 app.use('/admin/leaderboards', leaderboards);
+app.use('/admin/coupons', coupons);
 
 //REQUIRE FOR API
 const Post = require('./models/Post');
@@ -90,6 +92,81 @@ const Blog = require('./models/Blogs');
 const Sponser = require('./models/Sponsers');
 const Detail = require('./models/Detail');
 const Progress = require('./models/Progress');
+const Coupon = require('./models/Coupon');
+
+//API CUOPNS
+app.get('/coupons', function(req, res) {
+    Coupon.find({})
+        .populate("detail")
+        .populate("sponser")
+        .exec(function(err, cupon) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({cupon});
+            }
+        });
+   });
+
+
+//API REEDEM
+app.get('/redeem/:id', (req, res) => {
+    var detail = req.params.id;
+    Coupon.find({detail}).then((redeem) => {
+        if(isEmptyObject(redeem)) {
+            return res.send('NO COUPONS');
+    } else{
+        res.send({redeem});
+    }
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});   
+
+app.post('/redeem/set', (req, res) => {
+    var p_coins = req.body.p_coins;
+    var u_coins = req.body.u_coins;
+    var detail = req.body.detail;
+    var coup = new Coupon({
+        detail: req.body.detail,
+        qrKey: req.body.qrKey,
+        sponser: req.body.sponser,
+        
+    });
+    
+    var new_coins = u_coins - p_coins;
+    Coupon.find({detail})
+        // .populate("progress")
+        .populate("sponser")
+        .exec(function(err, cupon) {
+            Progress.findOneAndUpdate({detail: detail}, {$set:{coins:new_coins}}, {new: true}, (err, doc) => {
+                if (err) {
+                    res.send("Something wrong when updating data!");
+                }
+                //coup.save()
+                res.send("worked");
+            });
+            // Progress.find({detail}).then((pro) => {
+                
+            //     //pro[0].coins = new_coins;
+            //     console.log(pro[0].coins);
+            //     coup.save().then((docs) => {
+
+            //         var progresses = new Progress({
+            //             detail: detail,
+            //             coins: new_coins
+            //         });
+            //         progresses.save().then((done) => {
+            //             pro[0].coins = new_coins;
+            //         res.send(docs);
+            //    });
+            //     }, (e) => {
+            //         res.status(400).send(e);
+            //     });
+            // });
+            
+        });
+});
 
 //API POST
 app.get('/posts', (req, res) => {

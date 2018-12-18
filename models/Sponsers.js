@@ -44,4 +44,4 @@ const SponserSchema = new Schema({
     // }] 
 });
 
-module.exports = mongoose.model('Sponser', SponserSchema);
+module.exports = mongoose.model('sponsers', SponserSchema);
