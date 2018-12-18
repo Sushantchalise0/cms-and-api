@@ -141,30 +141,16 @@ app.post('/redeem/set', (req, res) => {
         .exec(function(err, cupon) {
             Progress.findOneAndUpdate({detail: detail}, {$set:{coins:new_coins}}, {new: true}, (err, doc) => {
                 if (err) {
-                    res.send("Something wrong when updating data!");
+                    res.send("0");
                 }
-                //coup.save()
-                res.send("worked");
+                else{
+                    coup.save().then((doc) => {
+                    res.send("1");
+                }, (e) => {
+                    res.status(400).send(e);
+                });
+            }
             });
-            // Progress.find({detail}).then((pro) => {
-                
-            //     //pro[0].coins = new_coins;
-            //     console.log(pro[0].coins);
-            //     coup.save().then((docs) => {
-
-            //         var progresses = new Progress({
-            //             detail: detail,
-            //             coins: new_coins
-            //         });
-            //         progresses.save().then((done) => {
-            //             pro[0].coins = new_coins;
-            //         res.send(docs);
-            //    });
-            //     }, (e) => {
-            //         res.status(400).send(e);
-            //     });
-            // });
-            
         });
 });
 
