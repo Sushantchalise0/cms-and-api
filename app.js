@@ -108,6 +108,25 @@ app.get('/coupons', function(req, res) {
         });
    });
 
+//API VERIFIED
+app.post('/verified', (req, res) => {
+    var qrKey = req.body.qrKey;
+    Coupon.find({qrKey}).then((available) => {
+    
+        if(isEmptyObject(available)){
+            res.send("not available")
+        } else{
+            Coupon.findOneAndUpdate({qrKey: qrKey}, {$set:{v_status:"true"}}, {new: true}, (err, doc) => {
+                if (err) {
+                    res.send("0");
+                }
+                else{
+                    res.send("Verified");
+                }
+                });
+}
+    });
+});
 
 //API REEDEM
 app.post('/getCoupons', (req, res) => {
