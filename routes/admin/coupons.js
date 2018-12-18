@@ -50,12 +50,12 @@ router.post('/create', (req, res) => {
         })
     } else {
 
-        let v_status = true;
+        let v_status = "true";
 
         if(req.body.v_status){
-            v_status = true;
+            v_status = "true";
         } else {
-            v_status = false;
+            v_status = "false";
         }
 
     const newCoupon = new Coupon({

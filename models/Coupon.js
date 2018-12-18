@@ -19,8 +19,8 @@ const CouponSchema = new Schema({
     },
 
     v_status: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: "false"
     }
 });
 
