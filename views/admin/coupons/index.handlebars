@@ -9,6 +9,7 @@
         <th>Name</th>
         <th>Sponsor</th>
         <th>QR</th>
+        <th>Status</th>
     </tr>
 </thead>
 
@@ -28,6 +29,7 @@
             </form>
         </td>
     
+    <td><input data-id="{{id}}" type="checkbox" name="v_status" {{#if v_status}} checked {{/if}}></td>
     </tr>
     {{/each}}
 

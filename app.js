@@ -97,8 +97,8 @@ const Coupon = require('./models/Coupon');
 //API CUOPNS
 app.get('/coupons', function(req, res) {
     Coupon.find({})
-        .populate("detail")
-        .populate("sponser")
+        //.populate("detail")
+        //.populate("sponser")
         .exec(function(err, cupon) {
             if(err) {
                 res.json(err);
@@ -110,9 +110,11 @@ app.get('/coupons', function(req, res) {
 
 
 //API REEDEM
-app.get('/redeem/:id', (req, res) => {
-    var detail = req.params.id;
-    Coupon.find({detail}).then((redeem) => {
+app.post('/getCoupons', (req, res) => {
+    var detail = req.body.detail;
+    Coupon.find({detail})
+    .populate("sponser")
+    .then((redeem) => {
         if(isEmptyObject(redeem)) {
             return res.send('NO COUPONS');
     } else{

@@ -50,13 +50,20 @@ router.post('/create', (req, res) => {
         })
     } else {
 
+        let v_status = true;
 
+        if(req.body.v_status){
+            v_status = true;
+        } else {
+            v_status = false;
+        }
 
     const newCoupon = new Coupon({
         
         detail: req.body.detail,
         sponser: req.body.sponser,
-        qrKey: req.body.qrKey
+        qrKey: req.body.qrKey,
+        v_status: v_status
    });
    
     newCoupon.save().then(savedCoupon => {

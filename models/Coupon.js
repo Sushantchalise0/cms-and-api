@@ -19,7 +19,7 @@ const CouponSchema = new Schema({
     },
 
     v_status: {
-        typw: Boolean,
+        type: Boolean,
         default: false
     }
 });
