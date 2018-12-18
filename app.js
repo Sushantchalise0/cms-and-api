@@ -112,7 +112,7 @@ app.get('/coupons', function(req, res) {
 //API REEDEM
 app.post('/getCoupons', (req, res) => {
     var detail = req.body.detail;
-    Coupon.find({detail}, "v_status")
+    Coupon.find({detail})
     .populate("sponser")
     .then((redeem) => {
         if(isEmptyObject(redeem)) {
@@ -394,6 +394,8 @@ app.post('/details/getDetails', (req, res) => {
         else{
             return res.send({data});
         }
+    }, (e) => {
+        res.status(400).send(e);
     });
 });
 
