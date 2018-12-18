@@ -96,7 +96,7 @@ const Coupon = require('./models/Coupon');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
-    Coupon.find({})
+    Coupon.find({}).sort({_id: -1})
         //.populate("detail")
         //.populate("sponser")
         .exec(function(err, cupon) {
@@ -175,7 +175,8 @@ app.get('/categories', (req, res) => {
 
 //API GET ALL BLOG
 app.get('/blogs', (req, res) => {
-    Blog.find().then((blogs) => {
+    Blog.find().sort({date: -1})
+    .then((blogs) => {
         res.send({blogs});
     }, (e) => {
         res.status(400).send(e);
