@@ -23,6 +23,7 @@ router.post('/create', (req, res) => {
     newDetail.save(savedDetail => { 
         const newProgres = Progress({
             distance: 0,
+            coins: 50,
             detail: newDetail._id
         });
         newProgres.save(saved => {

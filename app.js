@@ -231,7 +231,7 @@ app.get('/progress', (req, res) => {
 
 //API FOR LEADERBOARD TOP 5
 app.get('/leaderboard', function(req, res) {
-    Progress.find({}, "distance").sort({distance: -1}).limit(5)
+    Progress.find({}, "distance").sort({distance: -1}).limit(15)
         .populate("detail")
         .exec(function(err, users) {
             if(err) {
@@ -335,7 +335,8 @@ app.post('/details', (req, res) => {
                 console.log(details._id);
                 var progresses = new Progress({
                     detail: details._id,
-                    distance: 0
+                    distance: 0,
+                    coins: 50
                 });
                 progresses.save().then((done) => {
                 res.send(docs);
