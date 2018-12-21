@@ -194,7 +194,7 @@ app.get('/categories', (req, res) => {
 
 //API GET ALL BLOG
 app.get('/blogs', (req, res) => {
-    Blog.find().sort({date: -1})
+    Blog.find().sort({date: 1})
     .then((blogs) => {
         res.send({blogs});
     }, (e) => {
@@ -425,23 +425,29 @@ app.post('/details/getDetails', (req, res) => {
 app.post('/progresses/setProgress', (req, res) => {
     
     var detail = req.body.detail;
+    var distance= req.body.distance;
+    var calorie= req.body.calorie;
+    var coins= req.body.coins;
     var prog = new Progress({
         detail: req.body.detail,
         distance: req.body.distance,
         calorie: req.body.calorie,
         coins: req.body.coins,
     });
-    Progress.findOneAndDelete({detail}).then((progresses) => {
-        
-        prog.save().then((progresses) => {
-            res.send(progresses);
-        }, (e) => {
-            res.status(400).send(e);
-        });
+    Progress.findOneAndUpdate({detail: detail}, { "$set": { "coins": coins, "distance": distance, "calorie":calorie}}, {new: true}, (err, doc) => {
+        if(err){
+            res.send('error');
+        }
+        res.send(doc);
+    //     prog.save().then((progresses) => {
+    //         res.send(progresses);
+    //     }, (e) => {
+    //         res.status(400).send(e);
+    //     });
 
-        res.send('updated');
-    }).catch((e) => {
-        res.status(400).send();
+    //     res.send('updated');
+    // }).catch((e) => {
+    //     res.status(400).send(e);
     });
 
 });

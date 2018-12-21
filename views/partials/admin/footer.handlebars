@@ -19,7 +19,6 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <a class="btn btn-primary" href="/logout">Logout</a>
@@ -80,8 +79,16 @@ var myChart = new Chart(ctx, {
 });
 </script>
     
-    
-    <script>
+     <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+    {{!-- <script>
 
         $("[name='approveComment']").bootstrapSwitch();
 
@@ -104,4 +111,4 @@ var myChart = new Chart(ctx, {
             });
         });
 
-    </script>
+    </script> --}}

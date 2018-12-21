@@ -12,8 +12,45 @@
         </form>
     </div>
 </div>
+<br/>
 
-<table class="table table-bordered">
+<div class="box-body" style="overflow-x:auto;">
+
+<table id="example" class="display" style="width:115%">
+        <thead>
+    <tr>
+        <th>Id</th>
+        <th>User Name</th>
+        <th>User Image</th>
+        <th>ACTIONS</th>
+    </tr>
+</thead>
+
+        <tbody>
+
+    {{#each details}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{user_name}}</td>
+        <td><img height="50" class="img-responsive" src="{{user_img}}" alt=""></td>
+        
+        <td>
+            <form action="/admin/details/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+
+ 
+</tbody>
+
+    </table>
+    
+</div>
+<br/>
+
+{{!-- <table class="table table-bordered">
 <thead>
     <tr>
         <th>Id</th>
@@ -40,4 +77,4 @@
 
  
 </tbody>
-</table> 
+</table>  --}}

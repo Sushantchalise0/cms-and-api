@@ -1,6 +1,79 @@
 <h2>Leaderboard</h2>
+<div class="box-body" style="overflow-x:auto;">
 
-<table class="table table-bordered">
+<table id="example" class="display" style="width:115%">
+        <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Distance</th>
+        <th>Calorie</th>
+        <th>Carbon Reduced</th>
+        <th>Coins</th>
+    </tr>
+        </thead>
+
+        <tbody>
+
+    {{#each progresses}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{detail.user_name}}</td>
+        <td>{{distance}}</td>
+        <td>{{calorie}}</td>
+        <td>{{carbon_red}}</td>
+        <td>{{coins}}</td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+
+    </table>
+    
+</div>
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- 
+<table class="table table-bordered"z>
 <thead>
     <tr>
         <th>Id</th>
@@ -30,4 +103,4 @@
 
 
 
-</table>
+</table> --}}
