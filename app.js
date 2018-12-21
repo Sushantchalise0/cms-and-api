@@ -204,7 +204,8 @@ app.get('/blogs', (req, res) => {
 
 //API GET ALL SPONSERS
 app.get('/sponsers', (req, res) => {
-    Sponser.find().then((sponsers) => {
+    Sponser.find().sort({coins: 1})
+    .then((sponsers) => {
         res.send({sponsers});
     }, (e) => {
         res.send(400).send(e);
