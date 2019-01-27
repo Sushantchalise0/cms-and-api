@@ -1,0 +1,44 @@
+<h1>ALL VENDORS</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+<div class="box-body" style="overflow-x:auto;">
+<table id="example" class="table table-bordered">
+<thead>
+    <tr>
+        
+        <th>VendorIcon</th>
+        <th>VendorName</th>
+        <th>VendorAdd</th>
+        <th>Status</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+
+<tbody>
+    {{#each vendors}}
+    <tr>
+        <td><img height="50" class="img-responsive" src="{{vendor_ic}}" alt=""></td>
+        <td>{{vendor_name}}</td>
+        <td>{{vendor_address}}</td>
+        <td>{{status}}</td>
+        <td>{{username}}</td>
+        <td><input type="password" value="{{password}}" readonly>
+        {{!-- {{password}} --}}
+        </td>
+        <td>
+             <a href="/admin/vendors/edit/{{id}}" class="btn btn-info">Edit</a>
+             {{!--
+            <form action="/admin/vendors/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form> --}}
+            <a href="/admin/vendors/products/{{id}}" class="btn btn-info">PRODUCTS</a>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+</table> 
+</div>

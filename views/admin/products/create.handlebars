@@ -1,0 +1,31 @@
+<h1>CREATE tbl_user_progress HERE</h1>
+
+{{#each errors}}
+
+    <div class="alert alert-danger">
+    {{message}}
+    </div>
+{{/each}}
+
+<form action="/admin/subprogress/create" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="distance"> Distance </label>
+        <input type="text" name="distance" class="form-control" id="distance" placeholder="Enter distance">
+    </div>
+
+  
+
+<div class="form-group">
+        <label for="detail"> user </label>
+        <select name="detail" id="status" class="form-control">
+        
+         {{#each details}}
+            <option value='{{id}}'>{{user_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary"> CREATE </button>
+
+</form>

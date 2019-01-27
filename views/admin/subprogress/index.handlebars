@@ -1,26 +1,28 @@
-<h1>ALL BLOGS</h1>
+<h1>ALL USER's DAILY PROGRESSES</h1>
 
 {{!-- {{> home/form-msgs}} --}}
 <div class="box-body" style="overflow-x:auto;">
 <table id="example" class="table table-bordered">
 <thead>
     <tr>
-        <th>Title</th>
-        <th>Discription</th>
+        <th>Name</th>
+        <th>Steps</th>
         <th>Date</th>
-         <th>Actions</th>
+          <th>Actions</th>
     </tr>
 </thead>
 
 <tbody>
 
-    {{#each blogs}}
+    {{#each subprogress}}
     <tr>
-        <td>{{title}}</td>
-        <td>{{description}}</td>
+        {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
+        <td>{{detail.user_name}}</td>
+        <td>{{distance}}</td>
         <td>{{generateTime date 'MMMM Do YYYY'}}</td>
-        <td><a href="/admin/blogs/edit/{{id}}" class="btn btn-info">Edit</a>
-            <form action="/admin/blogs/{{id}}?_method=DELETE" method="POST">
+        
+        <td>
+            <form action="/admin/subprogress/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
         </td>

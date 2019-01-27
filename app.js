@@ -61,49 +61,49 @@ app.use((req, res, next) => {
 //LOAD ROUTES
 const home = require('./routes/home/index');
 const admin = require('./routes/admin/index');
-const posts = require('./routes/admin/posts');
-const categories = require('./routes/admin/categories');
-const comments = require('./routes/admin/comments');
+const tests = require('./routes/admin/tests');
 const blogs = require('./routes/admin/blogs');
 const sponsers = require('./routes/admin/sponsers');
 const details = require('./routes/admin/details');
 const progresses = require('./routes/admin/porgresses');
 const leaderboards = require('./routes/admin/leaderboards');
 const coupons = require('./routes/admin/coupons');
-
+const subprogress = require('./routes/admin/subprogress');
+const vendors = require('./routes/admin/vendors');
 
 //USE ROUTES
 app.use('/', home);
 app.use('/admin', admin);
-app.use('/admin/posts', posts);
-app.use('/admin/categories', categories);
-app.use('/admin/comments', comments);
 app.use('/admin/blogs', blogs);
+app.use('/admin/tests', tests);
 app.use('/admin/sponsers', sponsers);
 app.use('/admin/details', details);
 app.use('/admin/progresses', progresses);
 app.use('/admin/leaderboards', leaderboards);
 app.use('/admin/coupons', coupons);
+app.use('/admin/subprogress',subprogress);
+app.use('/admin/vendors',vendors);
 
 //REQUIRE FOR API
-const Post = require('./models/Post');
-const Category = require('./models/Category');
 const Blog = require('./models/Blogs');
 const Sponser = require('./models/Sponsers');
 const Detail = require('./models/Detail');
 const Progress = require('./models/Progress');
 const Coupon = require('./models/Coupon');
+const Test = require('./models/tests');
+const Subprogress = require('./models/Subprogress');
+const Vendor = require('./models/Vendors');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
     Coupon.find({}).sort({_id: -1})
         //.populate("detail")
         //.populate("sponser")
-        .exec(function(err, cupon) {
+        .exec(function(err, coupon) {
             if(err) {
                 res.json(err);
             } else {
-                res.json({cupon});
+                res.json({coupon});
             }
         });
    });
@@ -201,6 +201,20 @@ app.get('/blogs', (req, res) => {
         res.status(400).send(e);
     });
 });
+//API GET ALL tests
+app.get('/tests',function(req, res){
+    Test.find().sort({date: 1})
+    .exec(function(err, tests) {
+        if(err) {
+            res.json(err);
+        } else {
+            res.json({tests});
+        }
+    });
+
+ 
+});
+
 
 //API GET ALL SPONSERS
 app.get('/sponsers', (req, res) => {
@@ -333,7 +347,7 @@ app.post('/details', (req, res) => {
     Detail.find({fb_id}).then((data) => {
         //console.log((data));
             details.save().then((docs) => {
-                console.log(details._id);
+               // console.log(details._id);
                 var progresses = new Progress({
                     detail: details._id,
                     distance: 0,
@@ -451,6 +465,62 @@ app.post('/progresses/setProgress', (req, res) => {
     });
 
 });
+
+// //API ADD USER SUB PROGRESS
+app.post('/subprogress', (req, res) => {
+    var subprogress = new Subprogress({
+        detail: req.body.detail,
+        date: req.body.date,
+        distance:req.body.distance
+    });
+
+    var date= req.body.date;
+    var detail= req.body.detail;
+    var distance= req.body.distance;
+    if (date==Date.now)
+    {
+        Subprogress.find({}, ['distance'], function (err, docs) {
+           console.log(docs);
+          });
+        Subprogress.findOneAndUpdate({detail: detail, date: date}, { "$set": {"distance": distance}}, {new: true}, (err, doc) => {
+            if(err){
+                res.send('error');
+            }
+            res.send(doc);
+        });
+    }
+   else{
+    subprogress.save().then((docs) => {
+        res.send(docs);
+    }, (e) => {
+        res.status(400).send(e);
+    });
+   }
+});
+//vendor login and get details
+app.post('/vendors', (req, res) => {
+        var username= req.body.username;
+        var password= req.body.password;
+        Vendor.find({username,password}).then( 
+            (vendors)  => {
+
+                if(isEmptyObject(vendors)) {
+                    return res.send({vendors:{}});
+            } else{
+                res.send({vendors:
+
+                    {   vendor_ic:vendors[0].vendor_ic,
+                        vendor_address:vendors[0].vendor_address,
+                        vendor_name:vendors[0].vendor_name,
+                        status:vendors[0].status
+                    }
+            });
+        }}
+        , (e) => {
+            res.status(400).send(e);
+        });
+});
+
 
 const port = process.env.PORT || 4500;
 

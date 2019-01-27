@@ -1,10 +1,9 @@
 <h2>Leaderboard</h2>
 <div class="box-body" style="overflow-x:auto;">
 
-<table id="example" class="display" style="width:115%">
+<table id="example" class="table table-bordered">
         <thead>
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Distance</th>
         <th>Calorie</th>
@@ -17,7 +16,6 @@
 
     {{#each progresses}}
     <tr>
-        <td>{{id}}</td>
         <td>{{detail.user_name}}</td>
         <td>{{distance}}</td>
         <td>{{calorie}}</td>

@@ -1,4 +1,4 @@
-<h1>ALL USER PROGRESSES</h1>
+<h1>DAILY USER PROGRESSES</h1>
 
 {{!-- {{> home/form-msgs}} --}}
 <div class="box-body" style="overflow-x:auto;">
@@ -7,27 +7,24 @@
     <tr>
         <th>Name</th>
         <th>Steps</th>
-        <th>Calorie</th>
-        <th>Coins</th>
+        <th>Date</th>
           <th>Actions</th>
     </tr>
 </thead>
 
 <tbody>
 
-    {{#each progresses}}
+    {{#each subprogress}}
     <tr>
         {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
         <td>{{detail.user_name}}</td>
         <td>{{distance}}</td>
-        <td>{{calorie}}</td>
-        <td>{{coins}}</td>
+        <td>{{date}}</td>
         
         <td>
-            <form action="/admin/progresses/{{id}}?_method=DELETE" method="POST">
+            <form action="/admin/subprogress/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
-               <a href="/admin/subprogress/detail/{{detail.id}}" class="btn btn-info">DETAILS</a>
         </td>
     
     </tr>

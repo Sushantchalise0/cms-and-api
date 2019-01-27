@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 
-    uploadDir: path.join(__dirname, '../public/uploads/'), 
+    uploadDir: path.join(__dirname, '../public/uploads/vendors'), 
 
     isEmpty: function(obj) {
 

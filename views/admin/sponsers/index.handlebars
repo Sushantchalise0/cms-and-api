@@ -1,11 +1,10 @@
 <h1>ALL SPONSERS</h1>
 
 {{!-- {{> home/form-msgs}} --}}
-
-<table class="table table-bordered">
+<div class="box-body" style="overflow-x:auto;">
+<table id="example" class="table table-bordered">
 <thead>
     <tr>
-        <th>Id</th>
         <th>Image</th>
         <th>Title</th>
         <th>Status</th>
@@ -13,14 +12,13 @@
         <th>Offers</th>
         <th>Coins REQ</th>
         <th>Date</th>
+        <th>Actions</th>
     </tr>
 </thead>
 
 <tbody>
-
     {{#each sponsers}}
     <tr>
-        <td>{{id}}</td>
         <td><img height="50" class="img-responsive" src="{{file}}" alt=""></td>
         <td>{{title}}</td>
         <td>{{status}}</td>
@@ -28,8 +26,7 @@
         <td>{{offer}}</td>
         <td>{{coins}}</td>
         <td>{{generateTime date 'MMMM Do YYYY'}}</td>
-        <td><a href="/admin/sponsers/edit/{{id}}" class="btn btn-info">Edit</a></td>
-        <td>
+        <td><a href="/admin/sponsers/edit/{{id}}" class="btn btn-info">Edit</a>
             <form action="/admin/sponsers/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
@@ -39,7 +36,5 @@
     {{/each}}
 
 </tbody>
-
-
-
 </table> 
+</div>

@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/amn.css">
-    <title>Anime</title>
-    
-</head>
-<body>
-  <div class="wrapper"></div>
-  
+<!--coin animation-->
+  <link rel="stylesheet" href="/css/amn.css">
+  <div class="wrapper"> </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
     <script>
       var maxElements = 250;
       var duration = 1500;
       var toAnimate = [];
       var distance = 250;
-      var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+      var colors = ['#18FF92', '#18FF92', '#18FF92', '#18FF92'];
 
       var createElements = (function() {
         var fragment = document.createDocumentFragment();
@@ -47,9 +38,5 @@
           loop: true
         });
       }
-
       toAnimate.forEach(animate);
-
     </script>
-</body>
-</html>

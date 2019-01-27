@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../../models/Post');
-const Category = require('../../models/Category');
 const Detail = require('../../models/Detail');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
@@ -16,19 +14,11 @@ router.all('/*', (req, res, next) => {
 });
 
 router.get('/', (req, res) => {
+              
+                    res.render('home/index', { });
 
-    Post.find({}).then(posts => {
-
-        Category.find({}).then(categories => {
-
-                Detail.find({}).then(details => {
-                    
-                    res.render('home/index', { posts: posts, categories: categories, details: details });
-
-            });
+     
         });
-    });  
-});
 
 
 router.get('/login', (req, res) => {

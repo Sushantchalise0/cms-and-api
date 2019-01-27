@@ -1,15 +1,15 @@
 <h1>ALL USER Coupons</h1>
 
 {{!-- {{> home/form-msgs}} --}}
-
-<table class="table table-bordered">
+<div class="box-body" style="overflow-x:auto;">
+<table id="example" class="table table-bordered">
 <thead>
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Sponsor</th>
         <th>QR</th>
         <th>Status</th>
+        <th>Action</th>
     </tr>
 </thead>
 
@@ -17,24 +17,28 @@
 
     {{#each coupons}}
     <tr>
-        <td>{{id}}</td>
         {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
         <td>{{detail.user_name}}</td>
         <td>{{sponser.title}}</td>
         <td>{{qrKey}}</td>
-        
+         <td>
+            {{v_status}}
+             {{!-- {{#if (v_status ='true')}}
+                        {{return true}}
+                        {{else }}
+                        {{return false}}
+                        {{/if}} --}}
+             </td>
         <td>
             <form action="/admin/coupons/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
         </td>
     
-    <td><input data-id="{{id}}" type="checkbox" name="v_status" {{#if v_status}} checked {{/if}}></td>
+   
     </tr>
     {{/each}}
 
 </tbody>
-
-
-
 </table>
+</div>
