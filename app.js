@@ -70,6 +70,7 @@ const leaderboards = require('./routes/admin/leaderboards');
 const coupons = require('./routes/admin/coupons');
 const subprogress = require('./routes/admin/subprogress');
 const vendors = require('./routes/admin/vendors');
+const category = require('./routes/admin/category');
 
 //USE ROUTES
 app.use('/', home);
@@ -83,6 +84,7 @@ app.use('/admin/leaderboards', leaderboards);
 app.use('/admin/coupons', coupons);
 app.use('/admin/subprogress',subprogress);
 app.use('/admin/vendors',vendors);
+app.use('/admin/category',category);
 
 //REQUIRE FOR API
 const Blog = require('./models/Blogs');
@@ -93,6 +95,7 @@ const Coupon = require('./models/Coupon');
 const Test = require('./models/tests');
 const Subprogress = require('./models/Subprogress');
 const Vendor = require('./models/Vendors');
+const Category = require('./models/Category');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
@@ -182,16 +185,6 @@ app.get('/posts', (req, res) => {
         res.status(400).send(e);
     });
 });
-
-//API CATEGORIES
-app.get('/categories', (req, res) => {
-    Category.find().then((categories) => {
-        res.send({categories});
-    }, (e) => {
-        res.status(400).send(e);
-    });
-});
-
 //API GET ALL BLOG
 app.get('/blogs', (req, res) => {
     Blog.find().sort({date: 1})
@@ -520,7 +513,14 @@ app.post('/vendors', (req, res) => {
             res.status(400).send(e);
         });
 });
-
+//API CATEGORIES
+app.get('/categories', (req, res) => {
+    Category.find().then((categories) => {
+        res.send({categories});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
 
 const port = process.env.PORT || 4500;
 

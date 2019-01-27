@@ -1,0 +1,33 @@
+<h1>CATEGORIES</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+<div class="box-body" style="overflow-x:auto;">
+<table id="example" class="table table-bordered">
+<thead>
+    <tr>
+        
+        <th>Category</th>
+        <th>Cat Img</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+
+<tbody>
+    {{#each categories}}
+    <tr>
+        <td>{{cat_name}}</td>
+        <td><img height="50" class="img-responsive" src="{{img}}" alt=""></td>
+        <td>
+             <a href="/admin/category/edit/{{id}}" class="btn btn-info">Edit</a>
+            <form action="/admin/category/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form> 
+            <a href="/admin/category/products/{{id}}" class="btn btn-info">PRODUCTS</a>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+</table> 
+</div>
