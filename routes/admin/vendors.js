@@ -39,14 +39,6 @@ router.post('/create', (req, res) => {
 
         errors.push({message: 'please add a vendor address'});
     }
-    if(!req.body.username){
-
-        errors.push({message: 'please add a vendor address'});
-    } 
-     if(!req.body.password){
-
-        errors.push({message: 'please add a vendor address'});
-    }
 
     if(errors.length > 0){
 
