@@ -97,6 +97,7 @@ const Coupon = require('./models/Coupon');
 const Test = require('./models/tests');
 const Subprogress = require('./models/Subprogress');
 const Vendor = require('./models/Vendors');
+const Vendorlog = require('./models/Vendorlog');
 const Category = require('./models/Category');
 
 //API CUOPNS
@@ -496,22 +497,26 @@ app.post('/subprogress', (req, res) => {
 app.post('/vendorlogin', (req, res) => {
         var username= req.body.username;
         var password= req.body.password;
-        Vendor.find({username,password}).then( 
-            (vendors)  => {
-
-                if(isEmptyObject(vendors)) {
-                    return res.send({vendors:{}});
+        Vendorlog.find({username,password}).then( 
+            (vendorlog)  => {
+                if(isEmptyObject(vendorlog)) {
+                    return res.send({vendorlog:{}});
             } else{
-                res.send({vendors:
-
-                    {   vendor_ic:vendors[0].vendor_ic,
-                        vendor_address:vendors[0].vendor_address,
-                        vendor_name:vendors[0].vendor_name,
-                        status:vendors[0].status,
-                        cat_id:vendors[0].cat_id
-                    }
+                var rama=vendorlog[0].vendor_id;
+                Vendor.findOne({_id:rama}).then( 
+                    (vendors)  => {
+                        if(isEmptyObject(vendors)) {
+                            return res.send({vendors:{}});
+                    } else{
+                             res.send({vendors:vendors
             });
-        }}
+            }
+        }
+                , (e) => {
+                    res.status(400).send(e);
+                });
+        }
+    }
         , (e) => {
             res.status(400).send(e);
         });
@@ -528,13 +533,28 @@ app.get('/vendors', function(req, res) {
     });
    });
 //API CATEGORIES
-app.get('/categories', (req, res) => {
-    Category.find().then((categories) => {
-        res.send({categories});
-    }, (e) => {
-        res.status(400).send(e);
-    });
-});
+// app.get('/categories', (req, res) => {
+//     Category.find()
+//     .populate("vendors")
+//     .then((categories) => {
+//         res.send({categories,vendors});
+//     }, (e) => {
+//         res.status(400).send(e);
+//     });
+// });
+
+//API vendor categories products
+app.get('/vendorall', function(req, res) {
+    Vendor.find({})
+        .populate("cat_id")
+        .exec(function(err, vendors) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({vendors});
+            }
+        });
+   });
 
 const port = process.env.PORT || 4500;
 
