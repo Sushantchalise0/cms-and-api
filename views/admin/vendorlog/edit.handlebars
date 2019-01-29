@@ -1,0 +1,24 @@
+<h1>EDIT CATEGORY HERE</h1>
+
+<form action="/admin/vendorlog/edit/{{vendorlogs.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+
+ <div class="form-group">
+        <label for="vendor_id"> Category </label>
+        <select name="vendor_id" id="vendor_id" class="form-control"  value="{{vendorlogs.vendor_id}}">
+        
+         {{#each vendors}}
+            <option value='{{id}}'>{{vendor_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+      <div class="form-group">
+        <label for="username"> Username </label>
+        <input type="text" name="username" class="form-control" id="username" value="{{vendorlogs.username}}">
+    </div>
+    <div class="form-group">
+        <label for="password"> Password </label>
+        <input type="text" name="password" class="form-control" id="password" value="{{vendorlogs.password}}">
+    </div>
+    <button type="submit" class="btn btn-primary"> Update </button>
+
+</form>

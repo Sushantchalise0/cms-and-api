@@ -8,6 +8,7 @@
         
         <th>VendorIcon</th>
         <th>VendorName</th>
+         <th>Category</th>
         <th>VendorAdd</th>
         <th>Status</th>
         <th>Username</th>
@@ -21,18 +22,15 @@
     <tr>
         <td><img height="50" class="img-responsive" src="{{vendor_ic}}" alt=""></td>
         <td>{{vendor_name}}</td>
+        <td>{{cat_id}}</td>
         <td>{{vendor_address}}</td>
         <td>{{status}}</td>
-        <td>{{username}}</td>
-        <td><input type="password" value="{{password}}" readonly>
-        {{!-- {{password}} --}}
         </td>
         <td>
              <a href="/admin/vendors/edit/{{id}}" class="btn btn-info">Edit</a>
-             {{!--
             <form action="/admin/vendors/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
-            </form> --}}
+            </form>
             <a href="/admin/vendors/products/{{id}}" class="btn btn-info">PRODUCTS</a>
         </td>
     

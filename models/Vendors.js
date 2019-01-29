@@ -2,18 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const VendorSchema = new Schema({
-
-    
-    username: {
-        type: String,
-        default: 'empty'
+    cat_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
     },
-
-    password: {
-        type: String,
-        default: 'empty'
-    },
-
     vendor_ic: {
         type: String,
         default: 'empty'

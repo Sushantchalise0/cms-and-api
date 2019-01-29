@@ -1,0 +1,30 @@
+<h1>ADD CATEGORY HERE</h1>
+
+{{#each errors}}
+
+    <div class="alert alert-danger">
+    {{message}}
+    </div>
+{{/each}}
+
+<form action="/admin/vendorlog/create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="vendor_id"> Vendor Name </label>
+        <select name="vendor_id" id="vendor_id" class="form-control">
+        
+         {{#each vendors}}
+            <option value='{{id}}'>{{vendor_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="username"> Username </label>
+        <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
+    </div>
+      <div class="form-group">
+        <label for="password"> Password </label>
+        <input type="text" name="password" class="form-control" id="password" placeholder="Enter password">
+    </div>
+    <button type="submit" class="btn btn-primary"> CREATE </button>
+
+</form>

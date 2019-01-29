@@ -71,6 +71,7 @@ const coupons = require('./routes/admin/coupons');
 const subprogress = require('./routes/admin/subprogress');
 const vendors = require('./routes/admin/vendors');
 const category = require('./routes/admin/category');
+const vendorlog = require('./routes/admin/vendorlog');
 
 //USE ROUTES
 app.use('/', home);
@@ -85,6 +86,7 @@ app.use('/admin/coupons', coupons);
 app.use('/admin/subprogress',subprogress);
 app.use('/admin/vendors',vendors);
 app.use('/admin/category',category);
+app.use('/admin/vendorlog',vendorlog);
 
 //REQUIRE FOR API
 const Blog = require('./models/Blogs');
@@ -491,7 +493,7 @@ app.post('/subprogress', (req, res) => {
    }
 });
 //vendor login and get details
-app.post('/vendors', (req, res) => {
+app.post('/vendorlogin', (req, res) => {
         var username= req.body.username;
         var password= req.body.password;
         Vendor.find({username,password}).then( 
@@ -505,7 +507,8 @@ app.post('/vendors', (req, res) => {
                     {   vendor_ic:vendors[0].vendor_ic,
                         vendor_address:vendors[0].vendor_address,
                         vendor_name:vendors[0].vendor_name,
-                        status:vendors[0].status
+                        status:vendors[0].status,
+                        cat_id:vendors[0].cat_id
                     }
             });
         }}
@@ -513,6 +516,17 @@ app.post('/vendors', (req, res) => {
             res.status(400).send(e);
         });
 });
+//API VENDORS
+app.get('/vendors', function(req, res) {
+    Vendor.find({}).then( 
+        (vendors)  => {
+                  res.json({vendors});
+            
+    }
+    , (e) => {
+        res.status(400).send(e);
+    });
+   });
 //API CATEGORIES
 app.get('/categories', (req, res) => {
     Category.find().then((categories) => {

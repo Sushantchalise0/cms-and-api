@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Vendor = require('../../models/Vendors');
+const Category = require('../../models/Category');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +13,7 @@ const {userAuth} = require('../../helpers/authen');
 //READ DATA
 router.get('/', (req, res) => {
     Vendor.find({})
+    .populate('Category')
     .then(vendors => {
 
         res.render('admin/vendors', {vendors: vendors});
@@ -21,11 +23,9 @@ router.get('/', (req, res) => {
 
 //CREATE DATA
 router.get('/create', (req, res) => {
-
-    Vendor.find({}).then(vendors => {
-        res.render('admin/vendors/create', {vendors: vendors}); 
+    Category.find({}).then(categories => {
+        res.render('admin/vendors/create', {categories: categories}); 
     });
- 
 });
 
 router.post('/create', (req, res) => {
@@ -81,6 +81,7 @@ router.post('/create', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         vendor_name: req.body.vendor_name,
+        cat_id: req.body.cat_id,
         vendor_address: req.body.vendor_address,
         status: status,
         vendor_ic: '/uploads/vendors/' + filename
@@ -121,12 +122,13 @@ router.delete('/:id', (req, res) => {
 router.get('/edit/:id', (req, res) => {
 
     Vendor.findOne({_id: req.params.id}).then(vendors => {
-        
-            res.render('admin/vendors/edit', {vendors: vendors}); 
+        Category.find({}).then(categories => {
+            res.render('admin/vendors/edit', {vendors: vendors,categories: categories}); 
        
 
         //res.render('admin/posts/edit', {post: post});
     }); 
+}); 
 });
 
 
@@ -143,9 +145,10 @@ router.get('/edit/:id', (req, res) => {
 
         vendors.status= status;
         vendors.vendor_name = req.body.vendor_name;
+        vendors.cat_id = req.body.cat_id;
         vendors.username = req.body.username;
         vendors.passsword = req.body.passsword;
-        vendors.address = req.body.address;
+        vendors.vendor_address = req.body.vendor_address;
         
 
         if(!isEmpty(req.files)){

@@ -8,18 +8,20 @@
 {{/each}}
 
 <form action="/admin/vendors/create" method="post" enctype="multipart/form-data">
-
-    <div class="form-group">
-        <label for="Username"> Username </label>
-        <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
-    </div>
-    <div class="form-group">
-        <label for="Password"> Password </label>
-        <input type="text" name="password" class="form-control" id="password" placeholder="Enter password">
-    </div>
+    <center><h5><label> Vendor Details </label></h5></center>
+    
      <div class="form-group">
         <label for="VendorName"> VendorName </label>
         <input type="text" name="vendor_name" class="form-control" id="vendorname" placeholder="Enter Vendorname">
+    </div>
+    <div class="form-group">
+        <label for="category"> Category </label>
+        <select name="cat_id" id="cat_id" class="form-control">
+        
+         {{#each categories}}
+            <option value='{{id}}'>{{cat_name}}</option>
+            {{/each}}
+        </select>
     </div>
     <div class="form-group">
         <label for="VendorAddress"> VendorAddress </label>
