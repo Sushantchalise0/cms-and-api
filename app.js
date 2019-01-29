@@ -97,8 +97,8 @@ const Coupon = require('./models/Coupon');
 const Test = require('./models/tests');
 const Subprogress = require('./models/Subprogress');
 const Vendor = require('./models/Vendors');
-const Vendorlog = require('./models/Vendorlog');
 const Category = require('./models/Category');
+const Vendorlog = require('./models/Vendorlog');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
@@ -113,6 +113,11 @@ app.get('/coupons', function(req, res) {
             }
         });
    });
+
+//API VENDORLOG
+// app.get('/vendorlog', (req, res) => {
+//     Vendorlog.find()
+// });
 
 //API VERIFIED
 app.post('/verified', (req, res) => {
@@ -497,64 +502,47 @@ app.post('/subprogress', (req, res) => {
 app.post('/vendorlogin', (req, res) => {
         var username= req.body.username;
         var password= req.body.password;
-        Vendorlog.find({username,password}).then( 
-            (vendorlog)  => {
-                if(isEmptyObject(vendorlog)) {
-                    return res.send({vendorlog:{}});
+        Vendor.find({username,password}).then( 
+            (vendors)  => {
+
+                if(isEmptyObject(vendors)) {
+                    return res.send({vendors:{}});
             } else{
-                var rama=vendorlog[0].vendor_id;
-                Vendor.findOne({_id:rama}).then( 
-                    (vendors)  => {
-                        if(isEmptyObject(vendors)) {
-                            return res.send({vendors:{}});
-                    } else{
-                             res.send({vendors:vendors
+                res.send({vendors:
+
+                    {   vendor_ic:vendors[0].vendor_ic,
+                        vendor_address:vendors[0].vendor_address,
+                        vendor_name:vendors[0].vendor_name,
+                        status:vendors[0].status,
+                        cat_id:vendors[0].cat_id
+                    }
             });
-            }
-        }
-                , (e) => {
-                    res.status(400).send(e);
-                });
-        }
-    }
+        }}
         , (e) => {
             res.status(400).send(e);
         });
 });
+
+
 //API VENDORS
 app.get('/vendors', function(req, res) {
-    Vendor.find({}).then( 
-        (vendors)  => {
-                  res.json({vendors});
-            
+    Vendor.find({}).then((vendors)  => {
+        res.json({vendors});        
     }
     , (e) => {
         res.status(400).send(e);
     });
    });
-//API CATEGORIES
-// app.get('/categories', (req, res) => {
-//     Category.find()
-//     .populate("vendors")
-//     .then((categories) => {
-//         res.send({categories,vendors});
-//     }, (e) => {
-//         res.status(400).send(e);
-//     });
-// });
 
-//API vendor categories products
-app.get('/vendorall', function(req, res) {
-    Vendor.find({})
-        .populate("cat_id")
-        .exec(function(err, vendors) {
-            if(err) {
-                res.json(err);
-            } else {
-                res.json({vendors});
-            }
-        });
-   });
+
+//API CATEGORIES
+app.get('/categories', (req, res) => {
+    Category.find().then((categories) => {
+        res.send({categories});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
 
 const port = process.env.PORT || 4500;
 
