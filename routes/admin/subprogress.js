@@ -22,7 +22,7 @@ router.get('/edit/:id', (req, res) => {
 router.get('/', (req, res) => {
 
     Subprogress.find({})
-    .populate('progress').populate('detail')
+    .populate('detail')
     .then(subprogress => {
 
         res.render('admin/subprogress', {subprogress: subprogress});

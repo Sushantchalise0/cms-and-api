@@ -13,7 +13,7 @@ const {userAuth} = require('../../helpers/authen');
 //READ DATA
 router.get('/', (req, res) => {
     Vendor.find({})
-    .populate('Category')
+    .populate("cat_id")
     .then(vendors => {
 
         res.render('admin/vendors', {vendors: vendors});
