@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
     Products.find({})
     .populate("vendor_id")
     .then(products => {
-
         res.render('admin/products', {products: products});
     });  
 });

@@ -567,27 +567,26 @@ app.get('/vendorall', function(req, res) {
     //         , (e) => {
     //             res.status(400).send(e);
     //         });
-        
-
-
 
             }
         });
    });
+
+
 //API products
 app.get('/products', function(req, res) {
-               Products.find({}).then( 
-                  (products)  => {
-                      if(isEmptyObject(products)) {
-                          return res.send({products:{}});
-                  } else{
-                    res.json({products});
-        }
-    }
-            , (e) => {
-                res.status(400).send(e);
-            });
-   });
+    Products.find({},'name')
+    .populate("vendor_id")
+    .then((ans) => {
+        res.send({ans});
+    }, (e) => {
+        res.send(400).send(e);
+    });
+
+        });
+   ///});
+
+
 const port = process.env.PORT || 4500;
 
 app.listen(port, () => {
