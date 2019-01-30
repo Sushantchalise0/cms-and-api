@@ -7,23 +7,42 @@
     </div>
 {{/each}}
 
-<form action="/admin/subprogress/create" method="post" enctype="multipart/form-data">
-
-    <div class="form-group">
-        <label for="distance"> Distance </label>
-        <input type="text" name="distance" class="form-control" id="distance" placeholder="Enter distance">
-    </div>
-
-  
+<form action="/admin/products/create" method="post" enctype="multipart/form-data">
 
 <div class="form-group">
-        <label for="detail"> user </label>
-        <select name="detail" id="status" class="form-control">
+        <label for="vendor_id"> VendorName </label>
+        <select name="vendor_id" id="vendor_id" class="form-control">
         
-         {{#each details}}
-            <option value='{{id}}'>{{user_name}}</option>
+         {{#each vendors}}
+            <option value='{{id}}'>{{vendor_name}}</option>
             {{/each}}
         </select>
+    </div>
+      <div class="form-group">
+        <label for="img"> ProductImage</label>
+        <input type="file" name="img" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="name"> ProductName </label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter product name">
+    </div>
+     <div class="form-group">
+        <label for="coins"> Req. Coins </label>
+        <input type="text" name="coins" class="form-control" id="coins" placeholder="Enter coins">
+    </div>
+     <div class="form-group">
+        <label for="desc"> Desc </label>
+        <input type="text" name="desc" class="form-control" id="desc" placeholder="Enter description">
+    </div>
+     <div class="form-group">
+        <label for="discount"> Discount </label>
+        <input type="text" name="discount" class="form-control" id="discount" placeholder="Enter discount">
+    </div>
+     <div class="form-group">
+        <label for="status" class="form-check-label"> 
+        <input type="checkbox" name="status" class="form-check-input" id="status" >
+        Status
+        </label>
     </div>
 
     <button type="submit" class="btn btn-primary"> CREATE </button>

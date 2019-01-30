@@ -1,31 +1,35 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const VendorSchema = new Schema({
-    cat_id: {
+const ProductSchema = new Schema({
+    vendor_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'Vendors'
     },
-    vendor_ic: {
+    name: {
         type: String,
         default: 'empty'
     },
 
-    vendor_name:{
+    img:{
         type: String,
         default: 'empty'
     },
-    vendor_address:{
+    coins:{
         type: String,
         default: 'empty'
     },
-    longitude:{
+    desc:{
         type: String,
         default: 'empty'
     },
-    lattitude:{
+    discount:{
         type: String,
         default: 'empty'
+    },
+    date:{
+        type: Date,
+        default: Date.now()
     },
     status:{
         type: String,
@@ -33,4 +37,4 @@ const VendorSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Vendors', VendorSchema);
+module.exports = mongoose.model('Products', ProductSchema);

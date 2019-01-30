@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Vendor = require('../../models/Vendors');
-const Category = require('../../models/Category');
+const Products = require('../../models/Products');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
 const fs = require('fs');
 const path = require('path');
@@ -12,37 +12,42 @@ const {userAuth} = require('../../helpers/authen');
 
 //READ DATA
 router.get('/', (req, res) => {
-    Vendor.find({})
-    .populate("cat_id")
-    .then(vendors => {
+    Products.find({})
+    .populate("vendor_id")
+    .then(products => {
 
-        res.render('admin/vendors', {vendors: vendors});
+        res.render('admin/products', {products: products});
     });  
 });
 
 
 //CREATE DATA
 router.get('/create', (req, res) => {
-    Category.find({}).then(categories => {
-        res.render('admin/vendors/create', {categories: categories}); 
+    Vendor.find({})
+    .then(vendors => {
+        res.render('admin/products/create', {vendors: vendors}); 
     });
 });
 
 router.post('/create', (req, res) => {
 
     let errors = [];
-    if(!req.body.vendor_name){
+    if(!req.body.name){
 
-        errors.push({message: 'please add a vendor name'});
+        errors.push({message: 'please add a product name'});
     }
-    if(!req.body.vendor_address){
+    if(!req.body.coins){
 
-        errors.push({message: 'please add a vendor address'});
+        errors.push({message: 'please add req. coins'});
+    }
+    if(!req.body.discount){
+
+        errors.push({message: 'please add discounts'});
     }
 
     if(errors.length > 0){
 
-        res.render('admin/vendors/create', {
+        res.render('admin/products/create', {
             errors: errors
         })
     } else {
@@ -50,10 +55,10 @@ router.post('/create', (req, res) => {
     let filename = "";
     if(!isEmpty(req.files)){
 
-    let file = req.files.vendor_ic;
+    let file = req.files.img;
     filename = Date.now() + '-'  + file.name;
 
-    file.mv('./public/uploads/vendors/' + filename, (err) => {
+    file.mv('./public/uploads/products/' + filename, (err) => {
 
         if (err) throw err;
     });
@@ -67,25 +72,23 @@ router.post('/create', (req, res) => {
         status = false;
     }
 
-    const newVendor = new Vendor({
+    const newProducts = new Products({
 
       
-        username: req.body.username,
-        password: req.body.password,
-        vendor_name: req.body.vendor_name,
-        cat_id: req.body.cat_id,
-        vendor_address: req.body.vendor_address,
-        longitude: req.body.longitude,
-        lattitude: req.body.lattitude,
+        vendor_id: req.body.vendor_id,
+        name: req.body.name,
+        coins: req.body.coins,
+        desc: req.body.desc,
+        discount: req.body.discount,
+        date: req.body.date,
         status: status,
-        vendor_ic: '/uploads/vendors/' + filename
+        img: '/uploads/products/' + filename
    });
-    
-   newVendor.save().then(savedVendor => {
 
-        req.flash('success_message', `Sponser ${savedVendor.vendor_name} was successfully created`);
+   newProducts.save().then(savednewProducts => {
+    req.flash('success_message', `Sponser ${savednewProducts.name} was successfully created`);
 
-        res.redirect('/admin/vendors');
+        res.redirect('/admin/products');
     }).catch(error => {
 
         console.log('couldnot save post');
@@ -97,15 +100,15 @@ router.post('/create', (req, res) => {
 //DELETE DATA
 router.delete('/:id', (req, res) => {
 
-    Vendor.findOne({_id: req.params.id})
-    .then(vendor =>{
+    Products.findOne({_id: req.params.id})
+    .then(products =>{
 
-        fs.unlink(uploadDir + vendor.file, (err) => {
+        fs.unlink(uploadDir + products.file, (err) => {
 
-            vendor.remove().then(vendorRemoved => {
+            products.remove().then(vendorRemoved => {
 
                 req.flash('success_message', `Vendor was successfully deleted`);
-                res.redirect('/admin/vendors');
+                res.redirect('/admin/products');
 
             });
         });
@@ -147,9 +150,9 @@ router.get('/edit/:id', (req, res) => {
 
         if(!isEmpty(req.files)){
 
-            let file = req.files.vendor_ic;
+            let file = req.files.img;
             filename = +Date.now() + '-'  + file.name;
-            vendors.vendor_ic = '/uploads/vendors/' + filename;
+            vendors.img = '/uploads/vendors/' + filename;
         
             file.mv('./public/uploads/vendors/' + filename, (err) => {
         

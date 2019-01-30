@@ -72,6 +72,7 @@ const subprogress = require('./routes/admin/subprogress');
 const vendors = require('./routes/admin/vendors');
 const category = require('./routes/admin/category');
 const vendorlog = require('./routes/admin/vendorlog');
+const products = require('./routes/admin/products');
 
 //USE ROUTES
 app.use('/', home);
@@ -87,6 +88,7 @@ app.use('/admin/subprogress',subprogress);
 app.use('/admin/vendors',vendors);
 app.use('/admin/category',category);
 app.use('/admin/vendorlog',vendorlog);
+app.use('/admin/products',products);
 
 //REQUIRE FOR API
 const Blog = require('./models/Blogs');
@@ -99,6 +101,7 @@ const Subprogress = require('./models/Subprogress');
 const Vendor = require('./models/Vendors');
 const Vendorlog = require('./models/Vendorlog');
 const Category = require('./models/Category');
+const Products = require('./models/Products');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
@@ -543,7 +546,7 @@ app.get('/vendors', function(req, res) {
 //     });
 // });
 
-//API vendor categories products
+//API vendor categories
 app.get('/vendorall', function(req, res) {
     Vendor.find({})
         .populate("cat_id")
@@ -551,11 +554,40 @@ app.get('/vendorall', function(req, res) {
             if(err) {
                 res.json(err);
             } else {
-                res.json({vendors});
+              res.json({vendors});
+
+    //           Products.findOne({}).then( 
+    //               (products)  => {
+    //                   if(isEmptyObject(products)) {
+    //                       return res.send({products:[]});
+    //               } else{
+    //                 res.json({products});
+    //     }
+    // }
+    //         , (e) => {
+    //             res.status(400).send(e);
+    //         });
+        
+
+
+
             }
         });
    });
-
+//API products
+app.get('/products', function(req, res) {
+               Products.find({}).then( 
+                  (products)  => {
+                      if(isEmptyObject(products)) {
+                          return res.send({products:{}});
+                  } else{
+                    res.json({products});
+        }
+    }
+            , (e) => {
+                res.status(400).send(e);
+            });
+   });
 const port = process.env.PORT || 4500;
 
 app.listen(port, () => {

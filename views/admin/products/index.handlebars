@@ -1,28 +1,38 @@
-<h1>ALL USER's DAILY PROGRESSES</h1>
+<h1>PRODUCTS</h1>
 
 {{!-- {{> home/form-msgs}} --}}
 <div class="box-body" style="overflow-x:auto;">
 <table id="example" class="table table-bordered">
 <thead>
     <tr>
-        <th>Name</th>
-        <th>Steps</th>
+        <th>VendorName</th>
+        <th>ProductName</th>
+        <th>Product</th>
+        <th>Desc</th>
+        <th>Req. Coins</th>
+        <th>Discount</th>
         <th>Date</th>
+        <th>Status</th>
           <th>Actions</th>
     </tr>
 </thead>
 
 <tbody>
 
-    {{#each subprogress}}
+    {{#each products}}
     <tr>
         {{!-- <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td> --}}
-        <td>{{detail.user_name}}</td>
-        <td>{{distance}}</td>
-        <td>{{date}}</td>
+        <td>{{vendor_id.vendor_name}}</td>
+        <td>{{name}}</td>
+        <td><img height="50" class="img-responsive" src="{{img}}" alt=""></td>
+        <td>{{desc}}</td>
+        <td>{{coins}}</td>
+        <td>{{discount}}</td>
+        <td>{{generateTime date 'MMMM Do YYYY'}}</td>
+        <td>{{status}}</td>
         
         <td>
-            <form action="/admin/subprogress/{{id}}?_method=DELETE" method="POST">
+            <form action="/admin/products/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
         </td>
