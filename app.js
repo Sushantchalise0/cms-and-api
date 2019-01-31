@@ -575,8 +575,8 @@ app.get('/vendorall', function(req, res) {
 
 //API products
 app.get('/products', function(req, res) {
-    Products.find({},'name')
-    .populate("vendor_id")
+    Products.find({},"name")
+    .populate([{ path: 'vendor_id', populate: { path: 'cat_id' }}])
     .then((ans) => {
         res.send({ans});
     }, (e) => {
