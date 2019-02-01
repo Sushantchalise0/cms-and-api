@@ -89,4 +89,39 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+
+//GO TO EDIT
+router.get('/edit/:id', (req, res) => {
+
+    Featured.findOne({_id: req.params.id}).then(featured => {
+            res.render('admin/featured/edit', {featured: featured}); 
+}); 
+});
+
+ //UPDATE DATA
+ router.put('/edit/:id', (req, res) => {
+
+    Featured.findOne({_id: req.params.id}).then(featured => {
+        featured.url = req.body.url;
+        
+
+        if(!isEmpty(req.files)){
+
+            let file = req.files.img;
+            filename = +Date.now() + '-'  + file.name;
+            featured.img = '/uploads/featured/' + filename;
+        
+            file.mv('./public/uploads/featured/' + filename, (err) => {
+        
+                if (err) throw err;
+            });
+            }
+
+            featured.save().then(updatedFeatured => {
+
+            req.flash('success_message', `Featured was successfully updated`);
+            res.redirect('/admin/featured');
+        });
+    });   
+});
 module.exports = router;
