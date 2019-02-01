@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Featured = require('../../models/Featured');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
+const fs = require('fs');
 
 
 //READ DATA
@@ -76,7 +77,7 @@ router.delete('/:id', (req, res) => {
     Featured.findOne({_id: req.params.id})
     .then(featured =>{
 
-        fs.unlink(uploadDir + featured.file, (err) => {
+        fs.unlink(uploadDir + featured.img, (err) => {
 
             featured.remove().then(vendorRemoved => {
 
