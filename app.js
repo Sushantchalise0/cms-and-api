@@ -73,6 +73,7 @@ const vendors = require('./routes/admin/vendors');
 const category = require('./routes/admin/category');
 const vendorlog = require('./routes/admin/vendorlog');
 const products = require('./routes/admin/products');
+const featured = require('./routes/admin/featured');
 
 //USE ROUTES
 app.use('/', home);
@@ -89,6 +90,7 @@ app.use('/admin/vendors',vendors);
 app.use('/admin/category',category);
 app.use('/admin/vendorlog',vendorlog);
 app.use('/admin/products',products);
+app.use('/admin/featured',featured);
 
 //REQUIRE FOR API
 const Blog = require('./models/Blogs');
@@ -102,6 +104,7 @@ const Vendor = require('./models/Vendors');
 const Vendorlog = require('./models/Vendorlog');
 const Category = require('./models/Category');
 const Products = require('./models/Products');
+const Featured = require('./models/Featured');
 
 //API CUOPNS
 app.get('/coupons', function(req, res) {
@@ -546,28 +549,47 @@ app.get('/vendors', function(req, res) {
 
 //API vendor categories
 app.get('/vendorall', function(req, res) {
-    Vendor.find({})
-        .populate("cat_id")
-        .exec(function(err, vendors) {
-            if(err) {
-                res.json(err);
-            } else {
-              res.json({vendors});
 
-    //           Products.findOne({}).then( 
-    //               (products)  => {
-    //                   if(isEmptyObject(products)) {
-    //                       return res.send({products:[]});
-    //               } else{
-    //                 res.json({products});
+Category.find({})
+.exec(function(err, category) {
+    if(err) {
+        res.json(err);
+    } else {
+     //res.json({category});
+     
+    //   Vendor.find({cat_id:category[0]._id}).then((data) => {
+    //     if(isEmptyObject(data)) {
+    //             res.send('false');
     //     }
-    // }
-    //         , (e) => {
-    //             res.status(400).send(e);
-    //         });
+    //     else{
+    //          res.send(data);
+    //     }
+    // });
+    Vendor.find({})
+    .exec(function(err, vendors) {
+        if(err) {
+            res.json(err);
+        } else {
+            res.json({category,vendors});
+        }
+    });
 
-            }
-        });
+
+    }
+});
+
+////previous vendor all
+    // Vendor.find({})
+    //     .populate("cat_id")
+    //     .exec(function(err, vendors) {
+    //         if(err) {
+    //             res.json(err);
+    //         } else {
+    //           res.json({vendors});
+
+    //         }
+    //     });
+////previous vendor all
    });
 
 
@@ -583,6 +605,19 @@ app.get('/products', function(req, res) {
 
         });
    ///});
+//API FEATURED
+app.get('/featured', function(req, res) {
+    Featured.find({}).sort({_id: -1})
+        //.populate("detail")
+        //.populate("sponser")
+        .exec(function(err, featured) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({featured});
+            }
+        });
+   });
 
 
 const port = process.env.PORT || 4500;

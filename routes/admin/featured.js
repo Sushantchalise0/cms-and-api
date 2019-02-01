@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Featured = require('../../models/Featured');
+const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
 
 
 //READ DATA
@@ -25,15 +26,20 @@ router.get('/create', (req, res) => {
 });
 
 
-//CREATE DATA
-router.get('/create', (req, res) => {
-    Vendor.find({})
-    .then(vendors => {
-        res.render('admin/products/create', {vendors: vendors}); 
-    });
-});
-
 router.post('/create', (req, res) => {
+
+    let errors = [];
+    if(!req.body.url){
+
+        errors.push({message: 'please add URL'});
+    }
+
+    if(errors.length > 0){
+
+        res.render('admin/featured/create', {
+            errors: errors
+        })
+    } else {
 
     let filename = "";
     if(!isEmpty(req.files)){
@@ -45,13 +51,14 @@ router.post('/create', (req, res) => {
 
         if (err) throw err;
     });
+    }
 
     const newFeatured = new Featured({
-
-        img: '/uploads/products/' + filename
+        url: req.body.url,
+        img: '/uploads/featured/' + filename
    });
 
-   newFeatured.save().then(savednewFeatured => {
+   newFeatured.save().then(SavednewFeatured => {
     req.flash('success_message', `Featured was successfully created`);
 
         res.redirect('/admin/featured');

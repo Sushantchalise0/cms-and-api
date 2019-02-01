@@ -1,0 +1,16 @@
+<h1>EDIT FEATURED HERE</h1>
+
+<form action="/admin/featured/edit/{{featured.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+
+     <div class="form-group">
+        <label for="img"> Upload Icon </label>
+        <input type="file" name="img" class="form-control" value="{{featured.img}}">
+    </div>
+     <div class="form-group">
+        <label for="url"> URL </label>
+        <input type="text" name="url" class="form-control" id="url" value="{{featured.url}}">
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Update </button>
+
+</form>

@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 const FeaturedSchema = new Schema({
 
 
-   file: {
+   img: {
+    type: String,
+    default: 'empty'
+   },
+   url: {
     type: String,
     default: 'empty'
    }

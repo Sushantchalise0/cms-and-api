@@ -1,0 +1,32 @@
+<h1>ALL FEATURED</h1>
+
+{{!-- {{> home/form-msgs}} --}}
+<div class="box-body" style="overflow-x:auto;">
+<table id="example" class="table table-bordered">
+<thead>
+    <tr>
+        
+        <th>Featured Image</th>
+        <th>Url</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+
+<tbody>
+    {{#each featured}}
+    <tr>
+        <td><img height="50" class="img-responsive" src="{{img}}" alt=""></td>
+        <td>{{url}}</td>
+        <td>
+             <a href="/admin/featured/edit/{{id}}" class="btn btn-info">Edit</a>
+            <form action="/admin/featured/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+        </td>
+    
+    </tr>
+    {{/each}}
+
+</tbody>
+</table> 
+</div>
