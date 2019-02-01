@@ -25,7 +25,6 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-
     let errors = [];
     if(!req.body.title){
 

@@ -465,32 +465,39 @@ app.post('/progresses/setProgress', (req, res) => {
 
 });
 
-// //API ADD USER SUB PROGRESS
+// //API ADD USER SUB PROGRESS daily
+//need detail id, date and distance
 app.post('/subprogress', (req, res) => {
     var subprogress = new Subprogress({
         detail: req.body.detail,
         date: req.body.date,
         distance:req.body.distance
     });
+//systemdate
+var datetime = new Date();
+var dateSystem=datetime.toISOString().slice(0,10);
+//systemdate
 
-    var date= req.body.date;
+    var datess= req.body.date;
     var detail= req.body.detail;
     var distance= req.body.distance;
-    if (date==Date.now)
+    if (datess==dateSystem)
     {
-        Subprogress.find({}, ['distance'], function (err, docs) {
-           console.log(docs);
-          });
-        Subprogress.findOneAndUpdate({detail: detail, date: date}, { "$set": {"distance": distance}}, {new: true}, (err, doc) => {
-            if(err){
-                res.send('error');
-            }
-            res.send(doc);
-        });
+        //console.log(datess);
+        //console.log(dateSystem);
+        Subprogress.findOneAndUpdate({date:datess, detail:detail}, {$set:{distance:distance}}, {new: true}, (err, doc) => {
+                    if (err) {
+                        res.send("0");
+                    }
+                    else{
+                        res.send("updated");
+                    }
+                    });
     }
    else{
     subprogress.save().then((docs) => {
         res.send(docs);
+       // console.log("new subprogress saved");
     }, (e) => {
         res.status(400).send(e);
     });
@@ -575,10 +582,10 @@ app.get('/vendorall', function(req, res) {
 
 //API products
 app.get('/products', function(req, res) {
-    Products.find({},"name")
+    Products.find({})
     .populate([{ path: 'vendor_id', populate: { path: 'cat_id' }}])
-    .then((ans) => {
-        res.send({ans});
+    .then((products) => {
+        res.send({products});
     }, (e) => {
         res.send(400).send(e);
     });

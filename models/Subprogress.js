@@ -13,7 +13,7 @@ const SubProgressSchema = new Schema({
         default: 0    },
 
     date: {
-        type: Date,
+        type: String,
         default: Date.now()
     }
 });

@@ -50,7 +50,7 @@ router.get('/create', (req, res) => {
 
 //CREATE DATA
 router.post('/create', (req, res) => {
-
+    
     let errors = [];
     if(!req.body.distance){
 
