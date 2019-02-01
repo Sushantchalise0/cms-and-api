@@ -473,35 +473,26 @@ app.post('/subprogress', (req, res) => {
         date: req.body.date,
         distance:req.body.distance
     });
-//systemdate
-var datetime = new Date();
-var dateSystem=datetime.toISOString().slice(0,10);
-//systemdate
-
-    var datess= req.body.date;
+// //systemdate
+// var datetime = new Date();
+// var dateSystem=datetime.toISOString().slice(0,10);
+// //systemdate
+    var date= req.body.date;
     var detail= req.body.detail;
     var distance= req.body.distance;
-    if (datess==dateSystem)
-    {
-        //console.log(datess);
-        //console.log(dateSystem);
-        Subprogress.findOneAndUpdate({date:datess, detail:detail}, {$set:{distance:distance}}, {new: true}, (err, doc) => {
-                    if (err) {
-                        res.send("0");
-                    }
-                    else{
-                        res.send("updated");
-                    }
-                    });
-    }
-   else{
-    subprogress.save().then((docs) => {
-        res.send(docs);
-       // console.log("new subprogress saved");
-    }, (e) => {
-        res.status(400).send(e);
-    });
-   }
+        Subprogress.findOneAndUpdate({date:date, detail:detail}, {$set:{distance:distance}}, {new: true}, (err, doc) => {
+
+            if(isEmptyObject(doc)) {
+                subprogress.save().then((docs) => {
+                            res.send(docs);
+                        }, (e) => {
+                            res.status(400).send(e);
+                        });
+                 }
+            else{
+                res.send("updated");
+             }
+         });
 });
 //vendor login and get details
 app.post('/vendorlogin', (req, res) => {
