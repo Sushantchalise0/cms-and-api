@@ -525,86 +525,51 @@ app.post('/vendorlogin', (req, res) => {
             res.status(400).send(e);
         });
 });
-//API VENDORS
-app.get('/vendors', function(req, res) {
-    Vendor.find({}).then( 
-        (vendors)  => {
-                  res.json({vendors});
-            
-    }
-    , (e) => {
-        res.status(400).send(e);
-    });
-   });
-//API CATEGORIES
-// app.get('/categories', (req, res) => {
-//     Category.find()
-//     .populate("vendors")
-//     .then((categories) => {
-//         res.send({categories,vendors});
-//     }, (e) => {
-//         res.status(400).send(e);
-//     });
-// });
 
-//API vendor categories
-app.get('/vendorall', function(req, res) {
-
-Category.find({})
-.exec(function(err, category) {
-    if(err) {
-        res.json(err);
-    } else {
-     //res.json({category});
-     
-    //   Vendor.find({cat_id:category[0]._id}).then((data) => {
-    //     if(isEmptyObject(data)) {
-    //             res.send('false');
-    //     }
-    //     else{
-    //          res.send(data);
-    //     }
-    // });
-    Vendor.find({})
-    .exec(function(err, vendors) {
-        if(err) {
-            res.json(err);
-        } else {
-            res.json({category,vendors});
+//API categories=>vendor
+app.get('/categories', function(req, res) {
+Category.aggregate([
+        { $lookup:
+           {
+             from: 'vendors',
+             localField: '_id',
+             foreignField: 'cat_id',
+             as: 'vendors'
+           }
         }
-    });
-
-
+    ])
+.then(category => {
+    if (!category) {
+        return res.status(404).send();
     }
+    res.json({category});
+}).catch((e) => {
+    res.status(400).send();
+});
 });
 
-////previous vendor all
-    // Vendor.find({})
-    //     .populate("cat_id")
-    //     .exec(function(err, vendors) {
-    //         if(err) {
-    //             res.json(err);
-    //         } else {
-    //           res.json({vendors});
-
-    //         }
-    //     });
-////previous vendor all
-   });
-
-
-//API products
-app.get('/products', function(req, res) {
-    Products.find({})
-    .populate([{ path: 'vendor_id', populate: { path: 'cat_id' }}])
-    .then((products) => {
-        res.send({products});
-    }, (e) => {
-        res.send(400).send(e);
-    });
+//API vendor=>products
+app.get('/vendors', function(req, res) {
+ Vendor.aggregate([
+    { $lookup:
+       {
+         from: 'products',
+         localField: '_id',
+         foreignField: 'vendor_id',
+         as: 'products'
+       }
+     }
+    ])
+.then(vendors => {
+if (!vendors) {
+    return res.status(404).send();
+}
+res.json({vendors});
+}).catch((e) => {
+res.status(400).send();
+});
 
         });
-   ///});
 //API FEATURED
 app.get('/featured', function(req, res) {
     Featured.find({}).sort({_id: -1})
