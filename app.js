@@ -10,7 +10,12 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const {mongoDbUrl} = require('./config/database');
 const passport = require('passport');
+//start for secure api
+// const morgan = require('morgan'),
+// jwt    = require('jsonwebtoken'),
+// config = require('./config/config');
 
+//end for secure api
 
 mongoose.connect(mongoDbUrl, { useNewUrlParser: true }).then((db) => {
 
@@ -59,21 +64,23 @@ app.use((req, res, next) => {
 });
 
 //LOAD ROUTES
-const home = require('./routes/home/index');
-const admin = require('./routes/admin/index');
-const tests = require('./routes/admin/tests');
-const blogs = require('./routes/admin/blogs');
-const sponsers = require('./routes/admin/sponsers');
-const details = require('./routes/admin/details');
-const progresses = require('./routes/admin/porgresses');
-const leaderboards = require('./routes/admin/leaderboards');
-const coupons = require('./routes/admin/coupons');
-const subprogress = require('./routes/admin/subprogress');
-const vendors = require('./routes/admin/vendors');
-const category = require('./routes/admin/category');
-const vendorlog = require('./routes/admin/vendorlog');
-const products = require('./routes/admin/products');
-const featured = require('./routes/admin/featured');
+let home = require('./routes/home/index');
+let admin = require('./routes/admin/index');
+let tests = require('./routes/admin/tests');
+let blogs = require('./routes/admin/blogs');
+let sponsers = require('./routes/admin/sponsers');
+let details = require('./routes/admin/details');
+let progresses = require('./routes/admin/porgresses');
+let leaderboards = require('./routes/admin/leaderboards');
+let coupons = require('./routes/admin/coupons');
+let subprogress = require('./routes/admin/subprogress');
+let vendors = require('./routes/admin/vendors');
+let category = require('./routes/admin/category');
+let vendorlog = require('./routes/admin/vendorlog');
+let products = require('./routes/admin/products');
+let featured = require('./routes/admin/featured');
+//for secure api
+// const  ProtectedRoutes = express.Router(); 
 
 //USE ROUTES
 app.use('/', home);
@@ -91,8 +98,92 @@ app.use('/admin/category',category);
 app.use('/admin/vendorlog',vendorlog);
 app.use('/admin/products',products);
 app.use('/admin/featured',featured);
+//for secure api
+// app.use('/api', ProtectedRoutes)
 
-//REQUIRE FOR API
+//********************************************************************* */json secure api starts
+//set secret
+// app.set('Secret', config.secret);
+
+// // use morgan to log requests to the console
+// app.use(morgan('dev'));
+
+// // parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// // parse application/json
+// app.use(bodyParser.json());
+
+
+// app.post('/authenticate',(req,res)=>{
+
+//     if(req.body.username==="walkman"){
+
+//         if(req.body.password==="walk9843089925"){
+//              // create token starts
+
+//         const payload = {
+
+//             check:  true
+
+//           };
+
+//           var token = jwt.sign(payload, app.get('Secret'), {
+//                 expiresIn: 1440 // expires in 24 hours
+
+//           });
+
+
+//           res.json({
+//             message: 'authentication done ',
+//             token: token
+//           });
+
+//         }else{
+//             res.json({message:"please check your password !"})
+//         }
+
+//     }else{
+
+//         res.json({message:"user not found !"})
+
+//     }
+
+// })
+
+// ProtectedRoutes.use((req, res, next) =>{
+
+
+//     // check header for the token
+//     var token = req.headers['access-token'];
+
+//     // decode token
+//     if (token) {
+
+//       // verifies secret and checks if the token is expired
+//       jwt.verify(token, app.get('Secret'), (err, decoded) =>{      
+//         if (err) {
+//           return res.json({ message: 'invalid token' });    
+//         } else {
+//           // if everything is good, save to request for use in other routes
+//           req.decoded = decoded;    
+//           next();
+//         }
+//       });
+
+//     } else {
+
+//       // if there is no token  
+
+//       res.send({ 
+
+//           message: 'No token provided.' 
+//       });
+
+//     }
+//   });
+
+  //REQUIRE FOR API
 const Blog = require('./models/Blogs');
 const Sponser = require('./models/Sponsers');
 const Detail = require('./models/Detail');
@@ -583,8 +674,7 @@ app.get('/featured', function(req, res) {
             }
         });
    });
-
-
+//******************************************** */json secure api ends
 const port = process.env.PORT || 4500;
 
 app.listen(port, () => {

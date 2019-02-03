@@ -10,6 +10,10 @@ const FeaturedSchema = new Schema({
    url: {
     type: String,
     default: 'empty'
+   },
+   name: {
+    type: String,
+    default: 'empty'
    }
 
     // comments: [{

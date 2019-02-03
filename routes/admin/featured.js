@@ -34,6 +34,10 @@ router.post('/create', (req, res) => {
 
         errors.push({message: 'please add URL'});
     }
+    if(!req.body.name){
+
+        errors.push({message: 'please add name'});
+    }
 
     if(errors.length > 0){
 
@@ -56,7 +60,8 @@ router.post('/create', (req, res) => {
 
     const newFeatured = new Featured({
         url: req.body.url,
-        img: '/uploads/featured/' + filename
+        img: '/uploads/featured/' + filename,
+        name:req.body.name
    });
 
    newFeatured.save().then(SavednewFeatured => {
@@ -103,6 +108,7 @@ router.get('/edit/:id', (req, res) => {
 
     Featured.findOne({_id: req.params.id}).then(featured => {
         featured.url = req.body.url;
+        featured.name=req.body.name;
         
 
         if(!isEmpty(req.files)){
