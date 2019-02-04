@@ -673,7 +673,7 @@ app.get('/featured', function(req, res) {
             }
         });
    });
-  //API CATEGORY
+//API CATEGORY
 app.get('/categories', function(req, res) {
     Category.find({})
         .exec(function(err, categories) {
@@ -684,7 +684,7 @@ app.get('/categories', function(req, res) {
             }
         });
    });  
-   //API VENDORS
+//API VENDORS
 app.get('/vendors', function(req, res) {
     Vendor.find({})
         .exec(function(err, vendors) {
@@ -692,6 +692,17 @@ app.get('/vendors', function(req, res) {
                 res.json(err);
             } else {
                 res.json({vendors});
+            }
+        });
+   });
+   //API VENDORS
+app.get('/products', function(req, res) {
+    Products.find({})
+        .exec(function(err, products) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({products});
             }
         });
    });
