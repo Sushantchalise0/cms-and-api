@@ -684,14 +684,14 @@ app.get('/categories', function(req, res) {
             }
         });
    });  
-   //API CUOPNS
-app.get('/category', function(req, res) {
-    Category.find({})
-        .exec(function(err, category) {
+   //API VENDORS
+app.get('/vendors', function(req, res) {
+    Vendor.find({})
+        .exec(function(err, vendors) {
             if(err) {
                 res.json(err);
             } else {
-                res.json({category});
+                res.json({vendors});
             }
         });
    });
