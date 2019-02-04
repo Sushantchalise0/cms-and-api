@@ -23,13 +23,17 @@ const ProductSchema = new Schema({
         type: String,
         default: 'empty'
     },
-    discount:{
-        type: String,
-        default: 'empty'
-    },
     date:{
         type: Date,
         default: Date.now()
+    },
+    act_price:{
+        type: String,
+        default: 'empty'
+    },
+    disc_price:{
+        type: String,
+        default: 'empty'
     },
     status:{
         type: String,

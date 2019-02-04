@@ -1,0 +1,50 @@
+<h1>EDIT VENDOR HERE</h1>
+
+<form action="/admin/products/edit/{{products.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+   <div class="form-group">
+        <label for="vendor_id"> VendorName </label>
+        <select name="vendor_id" id="vendor_id" class="form-control" value="{{products.vendor_id}}">
+        
+         {{#each vendors}}
+            <option value='{{id}}'>{{vendor_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+      <div class="form-group">
+        <label for="img"> ProductImage</label>
+        <input type="file" name="img" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="name"> ProductName </label>
+        <input type="text" name="name" class="form-control" id="name"  value="{{products.name}}">
+    </div>
+     <div class="form-group">
+        <label for="coins"> Req. Coins </label>
+        <input type="text" name="coins" class="form-control" id="coins"  value="{{products.coins}}">
+    </div>
+     <div class="form-group">
+        <label for="act_price"> Actual Price </label>
+        <input type="text" name="act_price" class="form-control" id="act_price"  value="{{products.act_price}}">
+    </div>
+     <div class="form-group">
+        <label for="disc_price"> After Disc Price </label>
+        <input type="text" name="disc_price" class="form-control" id="disc_price"  value="{{products.disc_price}}">
+    </div>
+     <div class="form-group">
+        <label for="desc"> Desc </label>
+        <input type="text" name="desc" class="form-control" id="desc"  value="{{products.desc}}">
+    </div>
+
+     <div class="form-group">
+        <label for="status" class="form-check-label"> 
+        <input type="checkbox" name="status" class="form-check-input" id="status"  value="{{products.status}}">
+        Status
+        </label>
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-primary"> Update </button>
+
+</form>

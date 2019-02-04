@@ -10,7 +10,8 @@
         <th>Product</th>
         <th>Desc</th>
         <th>Req. Coins</th>
-        <th>Discount</th>
+        <th>ActPrice</th>
+        <th>DiscPrice</th>
         <th>Date</th>
         <th>Status</th>
           <th>Actions</th>
@@ -27,11 +28,13 @@
         <td><img height="50" class="img-responsive" src="{{img}}" alt=""></td>
         <td>{{desc}}</td>
         <td>{{coins}}</td>
-        <td>{{discount}}</td>
+        <td>{{act_price}}</td>
+        <td>{{disc_price}}</td>
         <td>{{generateTime date 'MMMM Do YYYY'}}</td>
         <td>{{status}}</td>
         
         <td>
+            <a href="/admin/products/edit/{{id}}" class="btn btn-info">Edit</a>
             <form action="/admin/products/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">DELETE</button>
             </form>

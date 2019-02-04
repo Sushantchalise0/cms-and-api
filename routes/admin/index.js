@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Sponser = require('../../models/Sponsers');
 const faker = require('faker');
+const WalkmanUsers = require('../../models/Progress');
 const Blog = require('../../models/Blogs');
 const User = require('../../models/Detail');
+const Vendor = require('../../models/Vendors');
+const Products = require('../../models/Products');
+const Coupons = require('../../models/Coupon');
 const {userAuth} = require('../../helpers/authen');
 
 
@@ -16,11 +19,15 @@ router.all('/*', userAuth, (req, res, next) => {
 router.get('/', (req, res) => {
 
    
-            Sponser.count({}).then(sponserCount => {
+    WalkmanUsers.count({}).then(walkmanCount => {
                 Blog.count({}).then(blogCount => {
-                    User.count({}).then(userCount => {
-                        res.render('admin/index', { sponserCount: sponserCount, blogCount:blogCount, userCount:userCount});
+                    Coupons.count({}).then(couponCount => {
+                    Products.count({}).then(productCount => {
+                        Vendor.count({}).then(vendorCount => {
+                        res.render('admin/index', { walkmanCount: walkmanCount, blogCount:blogCount,couponCount:couponCount, productCount:productCount, vendorCount:vendorCount});
                     });
+                });
+                 });
                 });
             });
         });

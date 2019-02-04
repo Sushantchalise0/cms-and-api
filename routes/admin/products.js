@@ -39,11 +39,14 @@ router.post('/create', (req, res) => {
 
         errors.push({message: 'please add req. coins'});
     }
-    if(!req.body.discount){
+    if(!req.body.act_price){
 
         errors.push({message: 'please add discounts'});
     }
+    if(!req.body.disc_price){
 
+        errors.push({message: 'please add discounts'});
+    }
     if(errors.length > 0){
 
         res.render('admin/products/create', {
@@ -78,9 +81,10 @@ router.post('/create', (req, res) => {
         name: req.body.name,
         coins: req.body.coins,
         desc: req.body.desc,
-        discount: req.body.discount,
         date: req.body.date,
         status: status,
+        act_price: req.body.act_price,
+        disc_price: req.body.disc_price,
         img: '/uploads/products/' + filename
    });
 
@@ -117,9 +121,9 @@ router.delete('/:id', (req, res) => {
 //GO TO EDIT
 router.get('/edit/:id', (req, res) => {
 
-    Vendor.findOne({_id: req.params.id}).then(vendors => {
-        Category.find({}).then(categories => {
-            res.render('admin/vendors/edit', {vendors: vendors,categories: categories}); 
+    Products.findOne({_id: req.params.id}).then(products => {
+        Vendor.find({}).then(vendors => {
+            res.render('admin/products/edit', {vendors: vendors,products: products}); 
        
 
         //res.render('admin/posts/edit', {post: post});
@@ -131,38 +135,39 @@ router.get('/edit/:id', (req, res) => {
  //UPDATE DATA
  router.put('/edit/:id', (req, res) => {
 
-    Vendor.findOne({_id: req.params.id}).then(vendors => {
+    Products.findOne({_id: req.params.id}).then(products => {
 
         if(req.body.status){
             status = true;
         } else {
             status = false;
         }
-
-        vendors.status= status;
-        vendors.vendor_name = req.body.vendor_name;
-        vendors.cat_id = req.body.cat_id;
-        vendors.vendor_address = req.body.vendor_address;
-        vendors.longitude = req.body.longitude;
-        vendors.lattitude = req.body.lattitude;
+        products.status= status;
+        products.vendor_id = req.body.vendor_id;
+        products.name = req.body.name;
+        products.coins = req.body.coins;
+        products.desc = req.body.desc;
+        products.act_price = req.body.act_price;
+        products.act_price = req.body.act_price;
+        products.disc_price = req.body.disc_price;
         
 
         if(!isEmpty(req.files)){
 
             let file = req.files.img;
             filename = +Date.now() + '-'  + file.name;
-            vendors.img = '/uploads/vendors/' + filename;
+            products.img = '/uploads/products/' + filename;
         
-            file.mv('./public/uploads/vendors/' + filename, (err) => {
+            file.mv('./public/uploads/products/' + filename, (err) => {
         
                 if (err) throw err;
             });
             }
 
-        vendors.save().then(updatedVendor => {
+            products.save().then(updatedProduct => {
 
-            req.flash('success_message', `Vendor was successfully updated`);
-            res.redirect('/admin/vendors');
+            req.flash('success_message', `product was successfully updated`);
+            res.redirect('/admin/products');
         });
     });   
 });
