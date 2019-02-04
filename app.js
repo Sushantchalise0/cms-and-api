@@ -618,49 +618,48 @@ app.post('/vendorlogin', (req, res) => {
 });
 
 //API categories=>vendor
-app.get('/categories', function(req, res) {
-Category.aggregate([
-        { $lookup:
-           {
-             from: 'vendors',
-             localField: '_id',
-             foreignField: 'cat_id',
-             as: 'vendors'
-           }
-        }
-    ])
-.then(category => {
-    if (!category) {
-        return res.status(404).send();
-    }
-    res.json({category});
-}).catch((e) => {
-    res.status(400).send();
-});
-});
-
+// app.get('/categories', function(req, res) {
+// Category.aggregate([
+//         { $lookup:
+//            {
+//              from: 'vendors',
+//              localField: '_id',
+//              foreignField: 'cat_id',
+//              as: 'vendors'
+//            }
+//         }
+//     ])
+// .then(category => {
+//     if (!category) {
+//         return res.status(404).send();
+//     }
+//     res.json({category});
+// }).catch((e) => {
+//     res.status(400).send();
+// });
+// });
 //API vendor=>products
-app.get('/vendors', function(req, res) {
- Vendor.aggregate([
-    { $lookup:
-       {
-         from: 'products',
-         localField: '_id',
-         foreignField: 'vendor_id',
-         as: 'products'
-       }
-     }
-    ])
-.then(vendors => {
-if (!vendors) {
-    return res.status(404).send();
-}
-res.json({vendors});
-}).catch((e) => {
-res.status(400).send();
-});
+// app.get('/vendors', function(req, res) {
+//  Vendor.aggregate([
+//     { $lookup:
+//        {
+//          from: 'products',
+//          localField: '_id',
+//          foreignField: 'vendor_id',
+//          as: 'products'
+//        }
+//      }
+//     ])
+// .then(vendors => {
+// if (!vendors) {
+//     return res.status(404).send();
+// }
+// res.json({vendors});
+// }).catch((e) => {
+// res.status(400).send();
+// });
 
-        });
+       // });
 //API FEATURED
 app.get('/featured', function(req, res) {
     Featured.find({}).sort({_id: -1})
@@ -671,6 +670,28 @@ app.get('/featured', function(req, res) {
                 res.json(err);
             } else {
                 res.json({featured});
+            }
+        });
+   });
+  //API CATEGORY
+app.get('/categories', function(req, res) {
+    Category.find({})
+        .exec(function(err, categories) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({categories});
+            }
+        });
+   });  
+   //API CUOPNS
+app.get('/category', function(req, res) {
+    Category.find({})
+        .exec(function(err, category) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({category});
             }
         });
    });
