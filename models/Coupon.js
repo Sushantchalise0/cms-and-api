@@ -11,6 +11,10 @@ const CouponSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Products'
    },
+   vendorID: {
+    type: Schema.Types.ObjectId,
+    ref: 'Vendors'
+   },
     qrKey: {
         type: String,
         default: "empty"

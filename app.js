@@ -236,6 +236,7 @@ app.post('/getCoupons', (req, res) => {
     var detail = req.body.detail;
     Coupon.find({detail})
     .populate("productID")
+    .populate("vendorID")
     .then((redeem) => {
         if(isEmptyObject(redeem)) {
             return res.send('NO COUPONS');
@@ -254,7 +255,8 @@ app.post('/redeem/set', (req, res) => {
     var coup = new Coupon({
         detail: req.body.detail,
         qrKey: req.body.qrKey,
-        productID: req.body.productID
+        productID: req.body.productID,
+        vendorID:req.body.vendorID
     });
     
     var new_coins = u_coins - p_coins;

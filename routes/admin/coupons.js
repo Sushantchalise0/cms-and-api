@@ -14,9 +14,9 @@ router.get('/', (req, res) => {
     Coupon.find({}).sort({date:-1})
     .populate('detail')
     .populate('productID')
+    .populate('vendorID')
     .then(coupons => {
         Vendor.find({})
-        .populate('vendor_id')
         .then(vendors => {
         res.render('admin/coupons', {coupons: coupons,vendors:vendors});
     });  
@@ -31,8 +31,11 @@ router.get('/create', (req, res) => {
     .then(details => {
         Product.find({})
         .then(products => {
-        res.render('admin/coupons/create', {details: details, products: products}); 
+            Vendor.find({})
+            .then(vendors => {
+        res.render('admin/coupons/create', {details: details, products: products,vendors:vendors}); 
         });
+    });
     });
  
 });
@@ -68,6 +71,7 @@ router.post('/create', (req, res) => {
         
         detail: req.body.detail,
         productID: req.body.productID,
+        vendorID: req.body.vendorID,
         qrKey: req.body.qrKey,
         v_status: v_status
    });
