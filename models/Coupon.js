@@ -18,7 +18,11 @@ const CouponSchema = new Schema({
     v_status: {
         type: String,
         default: "false"
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
 });
 
 module.exports = mongoose.model('Coupon', CouponSchema);

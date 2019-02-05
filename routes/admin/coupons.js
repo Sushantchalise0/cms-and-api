@@ -4,17 +4,23 @@ const Coupon = require('../../models/Coupon');
 const Detail = require('../../models/Detail');
 const Sponser = require('../../models/Sponsers');
 const Product = require('../../models/Products');
+const Vendor = require('../../models/Vendors');
+
 
 
 //READ DATA
 router.get('/', (req, res) => {
 
-    Coupon.find({})
+    Coupon.find({}).sort({date:-1})
     .populate('detail')
     .populate('productID')
     .then(coupons => {
-        res.render('admin/coupons', {coupons: coupons});
+        Vendor.find({})
+        .populate('vendor_id')
+        .then(vendors => {
+        res.render('admin/coupons', {coupons: coupons,vendors:vendors});
     });  
+}); 
 });
 
 
