@@ -9,6 +9,7 @@
         <th>Product</th>
         <th>VendorName</th>
         <th>QR</th>
+        <th>Date</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -23,6 +24,7 @@
         <td>{{productID.name}}</td>
         <td>{{vendorID.vendor_name}}</td>
         <td>{{qrKey}}</td>
+        <td>{{generateTime date 'MMMM Do YYYY'}}</td>
          <td>
             {{v_status}}
              {{!-- {{#if (v_status ='true')}}
