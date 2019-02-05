@@ -217,7 +217,7 @@ app.post('/verified', (req, res) => {
     Coupon.find({qrKey}).then((available) => {
     
         if(isEmptyObject(available)){
-            res.send("not available")
+            res.send({available})
         } else{
             Coupon.findOneAndUpdate({qrKey: qrKey}, {$set:{v_status:"true"}}, {new: true}, (err, doc) => {
                 if (err) {
@@ -239,7 +239,7 @@ app.post('/getCoupons', (req, res) => {
     .populate("vendorID")
     .then((redeem) => {
         if(isEmptyObject(redeem)) {
-            return res.send('NO COUPONS');
+            return res.send({redeem});
     } else{
         res.send({redeem});
     }
