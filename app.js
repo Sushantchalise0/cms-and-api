@@ -235,7 +235,7 @@ app.post('/verified', (req, res) => {
 app.post('/getCoupons', (req, res) => {
     var detail = req.body.detail;
     Coupon.find({detail})
-    .populate("sponser")
+    .populate("productID")
     .then((redeem) => {
         if(isEmptyObject(redeem)) {
             return res.send('NO COUPONS');
@@ -254,13 +254,13 @@ app.post('/redeem/set', (req, res) => {
     var coup = new Coupon({
         detail: req.body.detail,
         qrKey: req.body.qrKey,
-        sponser: req.body.sponser
+        productID: req.body.productID
     });
     
     var new_coins = u_coins - p_coins;
     Coupon.find({detail})
         // .populate("progress")
-        .populate("sponser")
+        .populate("productID")
         .exec(function(err, cupon) {
             Progress.findOneAndUpdate({detail: detail}, {$set:{coins:new_coins}}, {new: true}, (err, doc) => {
                 if (err) {

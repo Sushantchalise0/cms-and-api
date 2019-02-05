@@ -3,6 +3,7 @@ const router = express.Router();
 const Coupon = require('../../models/Coupon');
 const Detail = require('../../models/Detail');
 const Sponser = require('../../models/Sponsers');
+const Product = require('../../models/Products');
 
 
 //READ DATA
@@ -10,9 +11,8 @@ router.get('/', (req, res) => {
 
     Coupon.find({})
     .populate('detail')
-    .populate('sponser')
+    .populate('productID')
     .then(coupons => {
-
         res.render('admin/coupons', {coupons: coupons});
     });  
 });
@@ -23,9 +23,9 @@ router.get('/create', (req, res) => {
 
     Detail.find({})
     .then(details => {
-        Sponser.find({})
-        .then(sponsers => {
-        res.render('admin/coupons/create', {details: details, sponsers: sponsers}); 
+        Product.find({})
+        .then(products => {
+        res.render('admin/coupons/create', {details: details, products: products}); 
         });
     });
  
@@ -61,7 +61,7 @@ router.post('/create', (req, res) => {
     const newCoupon = new Coupon({
         
         detail: req.body.detail,
-        sponser: req.body.sponser,
+        productID: req.body.productID,
         qrKey: req.body.qrKey,
         v_status: v_status
    });

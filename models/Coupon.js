@@ -7,17 +7,14 @@ const CouponSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'details'
    },
-
-   sponser: {
+   productID: {
     type: Schema.Types.ObjectId,
-    ref: 'sponsers'
+    ref: 'Products'
    },
-
     qrKey: {
         type: String,
         default: "empty"
     },
-
     v_status: {
         type: String,
         default: "false"
