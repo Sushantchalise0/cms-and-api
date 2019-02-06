@@ -9,7 +9,8 @@
         <th>Product</th>
         <th>VendorName</th>
         <th>QR</th>
-        <th>Date</th>
+        <th>CreatedDate</th>
+        <th>RedeemedDate</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -25,6 +26,7 @@
         <td>{{vendorID.vendor_name}}</td>
         <td>{{qrKey}}</td>
         <td>{{generateTime date 'MMMM Do YYYY'}}</td>
+         <td>{{generateTime redeemed_date 'MMMM Do YYYY'}}</td>
          <td>
             {{v_status}}
              {{!-- {{#if (v_status ='true')}}

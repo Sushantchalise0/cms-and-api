@@ -23,9 +23,13 @@ const CouponSchema = new Schema({
         type: String,
         default: "false"
     },
-    date: {
+    created_date: {
         type: Date,
         default: Date.now()
+    },
+    redeemed_date: {
+        type: Date,
+        default: "0001-01-01"
     },
 });
 

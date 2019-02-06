@@ -214,12 +214,13 @@ app.get('/coupons', function(req, res) {
 //API VERIFIED
 app.post('/verified', (req, res) => {
     var qrKey = req.body.qrKey;
+    var redeemed_dates=Date.now();
     Coupon.find({qrKey}).then((available) => {
     
         if(isEmptyObject(available)){
             res.send({available})
         } else{
-            Coupon.findOneAndUpdate({qrKey: qrKey}, {$set:{v_status:"true"}}, {new: true}, (err, doc) => {
+            Coupon.findOneAndUpdate({qrKey: qrKey}, {$set:{v_status:"true",redeemed_date:redeemed_dates}}, {new: true}, (err, doc) => {
                 if (err) {
                     res.send("0");
                 }
