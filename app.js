@@ -598,7 +598,7 @@ app.post('/vendorlogin', (req, res) => {
         Vendorlog.find({username,password}).then( 
             (vendorlog)  => {
                 if(isEmptyObject(vendorlog)) {
-                    return res.send({vendorlog:{}});
+                    return res.send({vendors:{}});
             } else{
                 var rama=vendorlog[0].vendor_id;
                 Vendor.findOne({_id:rama}).then( 
