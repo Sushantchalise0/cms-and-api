@@ -24,8 +24,9 @@ router.get('/', (req, res) => {
                     Coupons.count({}).then(couponCount => {
                     Products.count({}).then(productCount => {
                         Vendor.count({}).then(vendorCount => {
-                        res.render('admin/index', { walkmanCount: walkmanCount, blogCount:blogCount,couponCount:couponCount, productCount:productCount, vendorCount:vendorCount});
-                    });
+                            Coupons.find({v_status:"true"}).count({}).then(redeemedCount => {
+                        res.render('admin/index', { walkmanCount: walkmanCount, blogCount:blogCount,couponCount:couponCount, productCount:productCount, vendorCount:vendorCount,redeemedCount:redeemedCount});
+                    }); });
                 });
                  });
                 });
