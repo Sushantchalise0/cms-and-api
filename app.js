@@ -214,8 +214,9 @@ app.get('/coupons', function(req, res) {
 //API VERIFIED
 app.post('/verified', (req, res) => {
     var qrKey = req.body.qrKey;
+    var vendorID=req.body.vendorID;
     var redeemed_dates=Date.now();
-    Coupon.find({qrKey}).then((available) => {
+    Coupon.find({qrKey,vendorID}).then((available) => {
     
         if(isEmptyObject(available)){
             res.send({available})
@@ -225,7 +226,7 @@ app.post('/verified', (req, res) => {
                     res.send("0");
                 }
                 else{
-                    res.send("Verified");
+                    res.send("1");
                 }
                 });
 }
