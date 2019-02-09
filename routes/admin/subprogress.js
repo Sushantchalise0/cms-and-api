@@ -21,7 +21,7 @@ router.get('/edit/:id', (req, res) => {
 //READ DATA
 router.get('/', (req, res) => {
 
-    Subprogress.find({})
+    Subprogress.find({}).sort({date:-1})
     .populate('detail')
     .then(subprogress => {
 

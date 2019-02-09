@@ -563,34 +563,59 @@ app.post('/progresses/setProgress', (req, res) => {
 
 });
 
-// //API ADD USER SUB PROGRESS daily
-//need detail id, date and distance
-app.post('/subprogress', (req, res) => {
-    var subprogress = new Subprogress({
-        detail: req.body.detail,
-        date: req.body.date,
-        distance:req.body.distance
-    });
-// //systemdate
-// var datetime = new Date();
-// var dateSystem=datetime.toISOString().slice(0,10);
-// //systemdate
-    var date= req.body.date;
-    var detail= req.body.detail;
-    var distance= req.body.distance;
-        Subprogress.findOneAndUpdate({date:date, detail:detail}, {$set:{distance:distance}}, {new: true}, (err, doc) => {
+app.get('/subtest', function(req, res) {
+    Subprogress.find({}).sort({_id: -1})
+        //.populate("detail")
+        //.populate("sponser")
+        .exec(function(err, subprogress) {
+            if(err) {
+                res.json(err);
+            } else {
+                res.json({subprogress});
+            }
+        });
+   });
 
-            if(isEmptyObject(doc)) {
-                subprogress.save().then((docs) => {
-                            res.send(docs);
-                        }, (e) => {
-                            res.status(400).send(e);
-                        });
-                 }
-            else{
-                res.send("updated");
-             }
-         });
+// //API ADD USER SUB PROGRESS daily
+//need detail id, date and distance in array in object subprogress
+app.post('/subprogress', (req, res) => {
+    var obj=Object.keys(req.body.subprogress).length;
+ var docs = [];
+ for(var i = 0; i < obj; i++) {
+     docs[i] = req.body.subprogress[i];
+     const subprogress = new Subprogress({
+        distance: docs[i].distance,
+        date: docs[i].date,
+        detail:docs[i].detail
+   });
+     subprogress.save().then((done) => {
+        if(done){
+            res.send("1");
+        } else{
+            res.send("0");
+        }
+    });
+ }
+// // //systemdate
+// // var datetime = new Date();
+// // var dateSystem=datetime.toISOString().slice(0,10);
+// // //systemdate
+//     var date= req.body.date;
+//     var detail= req.body.detail;
+//     var distance= req.body.distance;
+//         Subprogress.findOneAndUpdate({date:date, detail:detail}, {$set:{distance:distance}}, {new: true}, (err, doc) => {
+
+//             if(isEmptyObject(doc)) {
+//                 subprogress.save().then((docs) => {
+//                             res.send(docs);
+//                         }, (e) => {
+//                             res.status(400).send(e);
+//                         });
+//                  }
+//             else{
+//                 res.send("updated");
+//              }
+//          });
 });
 //vendor login and get details
 app.post('/vendorlogin', (req, res) => {
